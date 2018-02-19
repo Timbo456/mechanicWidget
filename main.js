@@ -7,6 +7,7 @@ var make = "GetShopVehicleMakes?";
 var model = "GetShopVehicleModels?";
 var services = "GetShopServices";
 var hours = "GetShopHours";
+var bookappointment = "Book";   //Git push to book the appt. 
 var carContainer = document.getElementById("Cars-info");
 var btn = document.getElementById("btn");
 
