@@ -5,9 +5,8 @@ var shop = "param.shopId=576676";
 var year = "GetShopVehicleYears?";
 var make = "GetShopVehicleMakes?";
 var model = "GetShopVehicleModels?";
-var service = "GetShopServices";
+var services = "GetShopServices";
 var hours = "GetShopHours";
-var
 var carContainer = document.getElementById("Cars-info");
 var btn = document.getElementById("btn");
 
@@ -29,9 +28,12 @@ btn.addEventListener("click", function() {
 
 function renderHTML(data) {
       var htmlString = "";
-      for (i = 0; i < data.length; i++) {
-         htmlString += "<button>" + data[i]; + "</button>";
-      }
-      carContainer.insertAdjacentHTML('beforeend', htmlString);
 
-};
+      for (i = 0; i < data.length; i++) {
+
+         htmlString += "<button>" + data[i]; + "</button>";
+
+  }
+
+  carContainer.insertAdjacentHTML('beforeend', htmlString);
+}
