@@ -30,7 +30,7 @@ function renderHTML(data) {
 
       for (i = 0; i < data.length; i++) {
 
-         htmlString += "<p>" + data[i]; + "</p>";
+         htmlString += "<button>" + data[i]; + "</button>";
 
   }
 

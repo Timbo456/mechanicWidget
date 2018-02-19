@@ -42,6 +42,7 @@ body {
   padding: 50px 10%;
 }
 
+
 button {
   background-color: #046380;
   color: #FFF;
@@ -62,6 +63,7 @@ button {
 button:hover {
   background-color: #034F66;
 }
+
 
 button:active {
   background-color: #034154;
