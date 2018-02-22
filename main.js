@@ -23,6 +23,8 @@ btn.addEventListener("click", function() {
 
         var ourData =JSON.parse(ourRequest.responseText);
         renderHTML(ourData);
+        
+
       };
       ourRequest.send();
     });
@@ -35,6 +37,14 @@ function renderHTML(data) {
          htmlString += "<button>" + data[i]; + "</button>";
 
   }
+
+function getOption() {
+    var obj = document.getElementById("mySelect");
+    document.getElementById("demo").innerHTML =
+    obj.options[obj.selectedIndex].text;
+}
+
+
 
   carContainer.insertAdjacentHTML('beforeend', htmlString);
 }
