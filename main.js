@@ -1,6 +1,6 @@
 
 var url = "https://api.mechanicadvisor.com/v7/schedule/";
-var key = "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6";
+var key = "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6"; //Hash API key?
 var shop = "param.shopId=576676";
 var year = "GetShopVehicleYears?";
 var make = "GetShopVehicleMakes?";
