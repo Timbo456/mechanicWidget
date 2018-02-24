@@ -1,32 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta name = "viewport" content= "width=device-width, initial-scale=1" />
-<title>SULLIVAN TEST</title>
-<link rel = "stylesheet" href="styles.css">
-</head>
-<body>
-   <header>
-      <h1>Sullivan Tire Schedule</h1>
+  <head>
+    <title>Mechanic Advisor Scheduler</title>
+    <link rel="stylesheet" type="text/css" href="scheduler.css">
+  </head>
+  <body>
 
-      <button id="btn">Year</button>
-      <!-- <button id="btn1">Make</button>
-      <button id="btn2">Model</button> -->
+    <div class="content">
+      <h1>Appointment Request</h1>
+      <form id="form">
+        <label>Select your vehicle (required)</label>
+        <div id="form-content"></div>
+      </form>
+    </div>
 
-      <select id="mySelect">
-        <button id = "Cars-info"></button>
-      </select>
-      <!-- <div id = "one"></div> -->
-      <input type="button" onclick="getOption()" value="Click Me!">
-  </form>
-  <p id="demo"></p>
-
-   </header>
-
-
-<div id= "Cars-info"></div>
-
-<script src="main.js"></script>
-
-</body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
 </html>
