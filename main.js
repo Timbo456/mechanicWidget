@@ -110,16 +110,8 @@ function Scheduler (shopId) {
            // that.render()
            // that.bindEvents()
 
-          console.log(this.years)
-          console.log(this.selectedYear)
-
-          console.log(this.makes)
-          console.log(this.selectedMake)
-
-          console.log(this.models)
-          console.log(this.selectedModel)
-
           // WHERE RENDER SHOULD BE
+
           that.render()
           that.bindEvents()
         })
@@ -141,8 +133,10 @@ function Scheduler (shopId) {
     var yearSelectHtml = "<div class='select-wrap'><select id='year-select'>" + yearSelectOptionsHtml + "</select></div>"
 
     var makeSelectOptionsHtml = ""
-    for (var i = 0; i < this.allMakes.length; i++) {
-      makeSelectOptionsHtml += `<option value=${this.allMakes[i].id}>${this.allMakes[i].name}</option>`
+    //for (var i = 0; i < this.allMakes.length; i++) {
+    for (var i = 0; i < this.makes.length; i++) {
+    //makeSelectOptionsHtml += `<option value=${this.allMakes[i].id}>${this.allMakes[i].name}</option>`
+      makeSelectOptionsHtml += `<option value=${this.makes[i].id}>${this.makes[i].name}</option>`
     }
     var makeSelectHtml = "<div class='select-wrap'><select id='make-select'>" + makeSelectOptionsHtml + "</select></div>"
 
@@ -181,7 +175,7 @@ function Scheduler (shopId) {
     //   //this.models = this.getModels()
     // })
 
-  }
+  }.bind(this)
 //////////////
   this.getYears = function (callback) {
     var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
@@ -205,7 +199,7 @@ function Scheduler (shopId) {
     makesRequest.onload = function() {
         console.log(makesRequest)
         this.makes = JSON.parse(makesRequest.response)
-        callback()
+        if (callback) callback()
     }.bind(this)
 
     makesRequest.send()
@@ -213,7 +207,7 @@ function Scheduler (shopId) {
   }.bind(this)
 ///////////
   this.getModels = function (callback) {
-    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake.Id + "&param.shopId=" + this.shopId
+    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake.id + "&param.shopId=" + this.shopId
     //var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + "3113" + "&param.shopId=" + this.shopId
     var modelsRequest = new XMLHttpRequest()
     modelsRequest.open("GET", modelsUrl)
@@ -221,7 +215,7 @@ function Scheduler (shopId) {
     modelsRequest.onload = function() {
         console.log(modelsRequest.response)
         this.models = JSON.parse(modelsRequest.response)
-        callback()
+        if (callback) callback()
     }.bind(this)
 
     modelsRequest.send()
