@@ -100,12 +100,15 @@ function Scheduler (shopId) {
       that.makes = that.getMakes(function () {
         that.selectedMake = that.makes[0]
 
-        that.render()
-        that.bindEvents()
+        // that.render()
+        // that.bindEvents()
 
         // FIX THIS DUMBASS
         that.models = that.getModels(function () {
           that.selectedModel = that.models[0]
+
+           // that.render()
+           // that.bindEvents()
 
           console.log(this.years)
           console.log(this.selectedYear)
@@ -117,8 +120,8 @@ function Scheduler (shopId) {
           console.log(this.selectedModel)
 
           // WHERE RENDER SHOULD BE
-          //this.render()
-
+          that.render()
+          that.bindEvents()
         })
       })
     })
@@ -142,10 +145,18 @@ function Scheduler (shopId) {
       makeSelectOptionsHtml += `<option value=${this.allMakes[i].id}>${this.allMakes[i].name}</option>`
     }
     var makeSelectHtml = "<div class='select-wrap'><select id='make-select'>" + makeSelectOptionsHtml + "</select></div>"
+
+    var modelSelectOptionsHtml = ""
+    for (var i = 0; i < this.models.length; i++) {
+      modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
+    }
+    var modelSelectHtml = "<div class= 'select-wrap'><select id='model-select'>" + modelSelectOptionsHtml + "</select></div>"
+
     var buttonHtml = "<button>Go</button>"
 
     formContentEl.append(yearSelectHtml)
     formContentEl.append(makeSelectHtml)
+    formContentE1.append(modelSelectHtml)
     formContentEl.append(buttonHtml)
 
   }.bind(this)
@@ -153,13 +164,25 @@ function Scheduler (shopId) {
   this.bindEvents = function () {
     var yearSelectEl = $("#year-select")
     var makeSelectEl = $("#make-select")
+    var modelSelectE1 = $("#model-select")
 
     yearSelectEl.change(function(e) {
       this.selectedYear = $(e.currentTarget).val()
       this.makes = this.getMakes()
     })
-  }.bind(this)
 
+    makeSelectE1.change(function(e){
+      this.selectedMake = $(e.currentTarget).val()
+      this.models = this.getModels()
+    })
+
+    // modelSelectE1.change(function(e){
+    //   this.selectedModel = $(e.currentTarget).val()
+    //   //this.models = this.getModels()
+    // })
+
+  }.bind(this)
+//////////////
   this.getYears = function (callback) {
     var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
     var yearsRequest = new XMLHttpRequest()
@@ -173,14 +196,14 @@ function Scheduler (shopId) {
     yearsRequest.send()
 
   }.bind(this)
-
+////////////
   this.getMakes = function (callback) {
-    var makesUrl = this.api.url + this.api.endpoints.makes + '?param.year=' + 2011 + "&param.shopId=" + this.shopId
+    var makesUrl = this.api.url + this.api.endpoints.makes + '?param.year=' + this.selectedYear + "&param.shopId=" + this.shopId
     var makesRequest = new XMLHttpRequest()
     makesRequest.open("GET", makesUrl)
     makesRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     makesRequest.onload = function() {
-        console.log(makesRequest)
+        //console.log(makesRequest)
         this.makes = JSON.parse(makesRequest.response)
         callback()
     }.bind(this)
@@ -188,13 +211,15 @@ function Scheduler (shopId) {
     makesRequest.send()
 
   }.bind(this)
-
+///////////
   this.getModels = function (callback) {
-    var modelsUrl = this.api.url + this.api.endpoints.models + '?param.shopId=' + this.shopId + "&param.year=" + this.selectedYear + "&param.modelId=" + this.selectedModel.id
+    //var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake.Id + "&param.shopId=" + this.shopId
+    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + "3113" + "&param.shopId=" + this.shopId
     var modelsRequest = new XMLHttpRequest()
     modelsRequest.open("GET", modelsUrl)
     modelsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     modelsRequest.onload = function() {
+        console.log(modelsRequest.response)
         this.models = JSON.parse(modelsRequest.response)
         callback()
     }.bind(this)
@@ -203,21 +228,21 @@ function Scheduler (shopId) {
 
   }.bind(this)
 
-  this.getModels = function () {
-    var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
-    var yearsRequest = new XMLHttpRequest()
-    yearsRequest.open("GET", shopYearsUrl)
-    yearsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
-    yearsRequest.onload = function(data) {
-        this.years = data
-    }.bind(this)
-
-    yearsRequest.send()
-
-  }.bind(this)
+  // this.getModels = function () {
+  //   var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
+  //   var yearsRequest = new XMLHttpRequest()
+  //   yearsRequest.open("GET", shopYearsUrl)
+  //   yearsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
+  //   yearsRequest.onload = function(data) {
+  //       this.years = data
+  //   }.bind(this)
+  //
+  //   yearsRequest.send()
+  //
+  // }.bind(this)
 }
 
 $(function() {
-  var scheduler = new Scheduler(576676)
+  var scheduler = new Scheduler(465087)
   scheduler.init()
 })
