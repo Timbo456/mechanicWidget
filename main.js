@@ -148,7 +148,7 @@ function Scheduler (shopId) {
 
     var modelSelectOptionsHtml = ""
     for (var i = 0; i < this.models.length; i++) {
-      modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
+      modelSelectOptionsHtml += `<option value= ${this.models[i].id}>${this.models[i].name}</option>`
     }
     var modelSelectHtml = "<div class= 'select-wrap'><select id='model-select'>" + modelSelectOptionsHtml + "</select></div>"
 
@@ -156,7 +156,7 @@ function Scheduler (shopId) {
 
     formContentEl.append(yearSelectHtml)
     formContentEl.append(makeSelectHtml)
-    formContentE1.append(modelSelectHtml)
+    formContentEl.append(modelSelectHtml)
     formContentEl.append(buttonHtml)
 
   }.bind(this)
@@ -169,19 +169,19 @@ function Scheduler (shopId) {
     yearSelectEl.change(function(e) {
       this.selectedYear = $(e.currentTarget).val()
       this.makes = this.getMakes()
-    })
+    }.bind(this))
 
-    makeSelectE1.change(function(e){
+    makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
       this.models = this.getModels()
-    })
+    }.bind(this))
 
     // modelSelectE1.change(function(e){
     //   this.selectedModel = $(e.currentTarget).val()
     //   //this.models = this.getModels()
     // })
 
-  }.bind(this)
+  }
 //////////////
   this.getYears = function (callback) {
     var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
@@ -203,7 +203,7 @@ function Scheduler (shopId) {
     makesRequest.open("GET", makesUrl)
     makesRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     makesRequest.onload = function() {
-        //console.log(makesRequest)
+        console.log(makesRequest)
         this.makes = JSON.parse(makesRequest.response)
         callback()
     }.bind(this)
@@ -213,8 +213,8 @@ function Scheduler (shopId) {
   }.bind(this)
 ///////////
   this.getModels = function (callback) {
-    //var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake.Id + "&param.shopId=" + this.shopId
-    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + "3113" + "&param.shopId=" + this.shopId
+    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake.Id + "&param.shopId=" + this.shopId
+    //var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + "3113" + "&param.shopId=" + this.shopId
     var modelsRequest = new XMLHttpRequest()
     modelsRequest.open("GET", modelsUrl)
     modelsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
