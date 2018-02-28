@@ -1,4 +1,4 @@
-function Scheduler (shopId) {
+function Scheduler(shopId) {
 
   this.shopId = shopId
   this.years = []
@@ -197,7 +197,7 @@ function Scheduler (shopId) {
     makesRequest.open("GET", makesUrl)
     makesRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     makesRequest.onload = function() {
-        console.log(makesRequest)
+        //console.log(makesRequest)
         this.makes = JSON.parse(makesRequest.response)
         if (callback) callback()
     }.bind(this)
