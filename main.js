@@ -4,12 +4,14 @@ function Scheduler(shopId) {
   this.years = []
   this.makes = []
   this.models = []
+  this.services = []
+  this.hours = []
+  this.date = "2018-03-05"
   this.selectedYear = null
   this.selectedModel = null
   this.selectedMake = null
   this.selectedService = null
-  this.services = []
-  this.shopHours = null
+  this.selectedHour = null
   this.api = {
     url: "https://api.mechanicadvisor.com/v7/schedule/",
     key: "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6",
@@ -17,7 +19,8 @@ function Scheduler(shopId) {
       shopYears: "GetShopVehicleYears",
       makes: "GetShopVehicleMakes",
       models: "GetShopVehicleModels",
-      services: "GetShopServices"
+      services: "GetShopServices",
+      hours: "GetShopHours"
     }
   }
   this.selection = {}
@@ -38,6 +41,10 @@ function Scheduler(shopId) {
       this.services = that.getServices(function () {
         that.selectedService = that.services[0].Id
 
+      this.hours = that.getHours(function () {
+        that.selectedHour = that.hours[0].Id
+
+      })
         })
 
           that.render()
@@ -104,6 +111,24 @@ function Scheduler(shopId) {
 
     var serviceSelectHtml = "<div class= 'select-wrap'><select id='services-select'>" + serviceSelectOptionsHtml + "</select></div>"
 
+//// Hours /////
+
+    var hoursSelectOptionsHtml = ""
+
+    for (var i = 0; i < this.hours.length; i++) {
+      if (this.selectedService === this.hours[i]) {
+        hoursSelectOptionsHtml += `<option value= ${this.hours[i].Id} selected>${this.hours[i].Name}</option>`
+      }
+      else {
+        hoursSelectOptionsHtml += `<option value= ${this.hours[i].Id}>${this.hours[i].Name}</option>`
+      }
+    }
+
+    var hoursSelectHtml = "<div class= 'select-wrap'><select id='hours-select'>" + hoursSelectOptionsHtml + "</select></div>"
+
+
+
+
 
     var buttonHtml = "<button>Schedule !</button>"
 
@@ -117,6 +142,7 @@ function Scheduler(shopId) {
     var makeSelectEl = $("#make-select")
     var modelSelectEl = $("#model-select")
     var serviceSelectEl = $("#services-select")
+    var hoursSelectEl = $("#hours-select")
     var that = this;
 
     yearSelectEl.change(function(e) {
@@ -142,6 +168,7 @@ function Scheduler(shopId) {
 
 
   }.bind(this)
+
 //////////////
   this.getYears = function (callback) {
     var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
@@ -202,6 +229,22 @@ function Scheduler(shopId) {
     serviceRequest.send()
 
   }.bind(this)
+  /////////////////////
+  this.getHours = function (callback) {
+    var hoursUrl = this.api.url + this.api.endpoints.models + "?param.date=" + this.date + "&param.shopId=" + this.shopId
+    var hoursRequest = new XMLHttpRequest()
+    hoursRequest.open("GET", hoursUrl)
+    hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
+    hoursRequest.onload = function() {
+        console.log(hoursRequest.response)
+        this.hours = JSON.parse(hoursRequest.response)
+        if (callback) callback()
+    }.bind(this)
+
+    hoursRequest.send()
+
+  }.bind(this)
+
 }
 
 $(function() {
