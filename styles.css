@@ -25,6 +25,19 @@ body div {
   font-family: sans-serif;
   color: #FFA500;
 }
+
+body div option {
+  color:#046380;
+  background-color: DodgerBlue;
+  font-size: 25px;
+}
+
+body div select{
+  color:Black;
+  background-color: MediumSeaGreen;
+  font-size: 25px;
+}
+
 html, body {
   padding: 0;
   margin: 0;
@@ -44,8 +57,8 @@ body {
 
 
 button {
-  background-color: #046380;
-  color: #FFF;
+  background-color: DodgerBlue;
+  color: Violet;
   border: none;
   padding: 10px 15px;
   font-size: 15px;
@@ -54,8 +67,9 @@ button {
   outline: none;
   box-shadow: 2px 2px 0 #034154;
   margin-bottom: 10px;
+  margin-top: 20px;
   /* margin-left: 18px; */
-  transition: opacity .4s ease-out, transform .4s ease-out, visibility .4s ease-out;
+  transition: opacity 4s ease-out, transform .4s ease-out, visibility .4s ease-out;
   position: relative;
 
 }
