@@ -98,14 +98,14 @@ function Scheduler(shopId) {
       that.selectedYear = that.years[0]
 
       that.makes = that.getMakes(function () {
-        that.selectedMake = that.makes[0]
+        that.selectedMake = that.makes[0].Id
 
         // that.render()
         // that.bindEvents()
 
         // FIX THIS DUMBASS
         that.models = that.getModels(function () {
-          that.selectedModel = that.models[0]
+          that.selectedModel = that.models[0].Id
 
            // that.render()
            // that.bindEvents()
@@ -127,31 +127,46 @@ function Scheduler(shopId) {
 
     var yearSelectOptionsHtml = ""
     for (var i = 0; i < this.years.length; i++) {
-      yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
-    }
+      if (parseInt(this.selectedYear) === this.years[i]) {
+        yearSelectOptionsHtml += `<option value=${this.years[i]} selected>${this.years[i]}</option>`
+      }
+      else {
+        yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
+      }
+  }
+
 
     var yearSelectHtml = "<div class='select-wrap'><select id='year-select'>" + yearSelectOptionsHtml + "</select></div>"
 
     var makeSelectOptionsHtml = ""
-    //for (var i = 0; i < this.allMakes.length; i++) {
+
     for (var i = 0; i < this.makes.length; i++) {
-    //makeSelectOptionsHtml += `<option value=${this.allMakes[i].id}>${this.allMakes[i].name}</option>`
-      makeSelectOptionsHtml += `<option value=${this.makes[i].id}>${this.makes[i].name}</option>`
+      console.log(this.selectedMake)
+      console.log(this.makes[i].Id)
+      if (parseInt(this.selectedMake) === this.makes[i].Id) {
+      makeSelectOptionsHtml += `<option value=${this.makes[i].Id} selected>${this.makes[i].Name}</option>`
     }
+    else {
+      makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
+    }
+  }
     var makeSelectHtml = "<div class='select-wrap'><select id='make-select'>" + makeSelectOptionsHtml + "</select></div>"
 
     var modelSelectOptionsHtml = ""
     for (var i = 0; i < this.models.length; i++) {
-      modelSelectOptionsHtml += `<option value= ${this.models[i].id}>${this.models[i].name}</option>`
+      if (this.selectedModel === this.models[i]) {
+      modelSelectOptionsHtml += `<option value= ${this.models[i].Id} selected>${this.models[i].Name}</option>`
+    } else {
+      modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
     }
+}
+
     var modelSelectHtml = "<div class= 'select-wrap'><select id='model-select'>" + modelSelectOptionsHtml + "</select></div>"
 
     var buttonHtml = "<button>Go</button>"
 
-    formContentEl.append(yearSelectHtml)
-    formContentEl.append(makeSelectHtml)
-    formContentEl.append(modelSelectHtml)
-    formContentEl.append(buttonHtml)
+    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + buttonHtml)
+
 
   }.bind(this)
 
@@ -159,15 +174,27 @@ function Scheduler(shopId) {
     var yearSelectEl = $("#year-select")
     var makeSelectEl = $("#make-select")
     var modelSelectE1 = $("#model-select")
+    var that = this;
 
     yearSelectEl.change(function(e) {
       this.selectedYear = $(e.currentTarget).val()
-      this.makes = this.getMakes()
+      this.makes = this.getMakes(function () {
+        // if (!that.selectedMake){
+        // that.selectedMake = that.makes[0].Id
+        // }
+
+        that.render()
+        that.bindEvents()
+      })
     }.bind(this))
 
     makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
-      this.models = this.getModels()
+      this.models = this.getModels(function() {
+        this.selectedModel = that.models[0].Id
+        that.render()
+        that.bindEvents()
+      })
     }.bind(this))
 
     // modelSelectE1.change(function(e){
@@ -207,7 +234,7 @@ function Scheduler(shopId) {
   }.bind(this)
 ///////////
   this.getModels = function (callback) {
-    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake.id + "&param.shopId=" + this.shopId
+    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake + "&param.shopId=" + this.shopId
     //var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + "3113" + "&param.shopId=" + this.shopId
     var modelsRequest = new XMLHttpRequest()
     modelsRequest.open("GET", modelsUrl)
