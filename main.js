@@ -46,7 +46,9 @@ function Scheduler(shopId) {
         that.selectedService = that.services[0].Id
 
       this.hours = that.getHours(function () {
-        that.selectedHour = that.hours[0].AvailableIntervals
+        console.log(that.hours);
+        //debugger;
+        that.selectedHour = that.hours.AvailableIntervals[0];
 
       })
         })
@@ -120,10 +122,10 @@ function Scheduler(shopId) {
     var hoursSelectOptionsHtml = ""
     //for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
     console.log(this.hours)
-    console.log(this.hours[1,1])
+    console.log(this.hours[1].start)
     //for (var i = 0; i < this.hours.length; i++) {
     for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
-      console.log(this.hours)
+      console.log(this.hours.AvailableIntervals[i])
       if (this.selectedHour === this.hours.AvailableIntervals[i]) {
         hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals.AvailableIntervals[i].start} selected>${this.hours.AvailableIntervals.AvailableIntervals[i].start}</option>`
       }
@@ -247,7 +249,8 @@ function Scheduler(shopId) {
     hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     hoursRequest.onload = function() {
         console.log(hoursRequest.response)
-        this.hours.AvailableIntervals = JSON.parse(hoursRequest.response)
+
+        this.hours = JSON.parse(hoursRequest.response)
         if (callback) callback()
     }.bind(this)
 
