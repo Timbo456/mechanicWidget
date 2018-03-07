@@ -6,6 +6,10 @@ function Scheduler(shopId) {
   this.models = []
   this.services = []
   this.hours = []
+  this.hours.AvailableIntervals = [],[]
+
+    //  AvailableIntervals = {}
+
   this.date = "2018-03-05"
   this.selectedYear = null
   this.selectedModel = null
@@ -42,7 +46,7 @@ function Scheduler(shopId) {
         that.selectedService = that.services[0].Id
 
       this.hours = that.getHours(function () {
-        that.selectedHour = that.hours[0].Id
+        that.selectedHour = that.hours[0].AvailableIntervals
 
       })
         })
@@ -114,13 +118,19 @@ function Scheduler(shopId) {
 //// Hours /////
 
     var hoursSelectOptionsHtml = ""
-
-    for (var i = 0; i < this.hours.length; i++) {
-      if (this.selectedService === this.hours[i]) {
-        hoursSelectOptionsHtml += `<option value= ${this.hours[i].Id} selected>${this.hours[i].Name}</option>`
+    //for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
+    console.log(this.hours)
+    console.log(this.hours[1,1])
+    //for (var i = 0; i < this.hours.length; i++) {
+    for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
+      console.log(this.hours)
+      if (this.selectedHour === this.hours.AvailableIntervals[i]) {
+        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals.AvailableIntervals[i].start} selected>${this.hours.AvailableIntervals.AvailableIntervals[i].start}</option>`
       }
       else {
-        hoursSelectOptionsHtml += `<option value= ${this.hours[i].Id}>${this.hours[i].Name}</option>`
+
+        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i]}>${this.hours.AvailableIntervals[i]}</option>`
+        console.log(this.hours.AvailableIntervals[i])
       }
     }
 
@@ -132,7 +142,7 @@ function Scheduler(shopId) {
 
     var buttonHtml = "<button>Schedule !</button>"
 
-    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + buttonHtml)
+    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + hoursSelectHtml + buttonHtml)
 
 
   }.bind(this)
@@ -206,7 +216,7 @@ function Scheduler(shopId) {
     modelsRequest.open("GET", modelsUrl)
     modelsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     modelsRequest.onload = function() {
-        console.log(modelsRequest.response)
+        //console.log(modelsRequest.response)
         this.models = JSON.parse(modelsRequest.response)
         if (callback) callback()
     }.bind(this)
@@ -221,7 +231,7 @@ function Scheduler(shopId) {
     serviceRequest.open("GET", servicesURL)
     serviceRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     serviceRequest.onload = function() {
-      console.log(serviceRequest.response)
+
       this.services = JSON.parse(serviceRequest.response)
       if (callback) callback()
     }.bind(this)
@@ -231,13 +241,13 @@ function Scheduler(shopId) {
   }.bind(this)
   /////////////////////
   this.getHours = function (callback) {
-    var hoursUrl = this.api.url + this.api.endpoints.models + "?param.date=" + this.date + "&param.shopId=" + this.shopId
+    var hoursUrl = this.api.url + this.api.endpoints.hours + "?param.date=" + this.date + "&param.shopId=" + this.shopId
     var hoursRequest = new XMLHttpRequest()
     hoursRequest.open("GET", hoursUrl)
     hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     hoursRequest.onload = function() {
         console.log(hoursRequest.response)
-        this.hours = JSON.parse(hoursRequest.response)
+        this.hours.AvailableIntervals = JSON.parse(hoursRequest.response)
         if (callback) callback()
     }.bind(this)
 
@@ -248,6 +258,6 @@ function Scheduler(shopId) {
 }
 
 $(function() {
-  var scheduler = new Scheduler(465087)
+  var scheduler = new Scheduler(587365)
   scheduler.init()
 })
