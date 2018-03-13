@@ -7,10 +7,13 @@ function Scheduler(shopId) {
   this.services = []
   this.hours = []
   this.hours.AvailableIntervals = [],[]
-
+  this.phone = ""
+  this.firstName = ""
+  this.lastName = ""
+  this.email = ""
+  this.comment = ""
     //  AvailableIntervals = {}
-
-  this.date = "2018-03-05"
+  this.date = "2018-03-14"
   this.selectedYear = null
   this.selectedModel = null
   this.selectedMake = null
@@ -46,7 +49,7 @@ function Scheduler(shopId) {
         that.selectedService = that.services[0].Id
 
       this.hours = that.getHours(function () {
-        console.log(that.hours);
+        console.log(that.hours.AvailableIntervals[6]);
         //debugger;
         that.selectedHour = that.hours.AvailableIntervals[0];
 
@@ -92,6 +95,7 @@ function Scheduler(shopId) {
     }
 
     var makeSelectHtml = "<div class='select-wrap'><select id='make-select'>" + makeSelectOptionsHtml + "</select></div>"
+
     var modelSelectOptionsHtml = ""
 
     for (var i = 0; i < this.models.length; i++) {
@@ -121,18 +125,18 @@ function Scheduler(shopId) {
 
     var hoursSelectOptionsHtml = ""
     //for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
-    console.log(this.hours)
-    console.log(this.hours[1].start)
+    //console.log(this.hours)
+    //console.log(this.hours[1].start)
     //for (var i = 0; i < this.hours.length; i++) {
     for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
-      console.log(this.hours.AvailableIntervals[i])
+
       if (this.selectedHour === this.hours.AvailableIntervals[i]) {
-        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals.AvailableIntervals[i].start} selected>${this.hours.AvailableIntervals.AvailableIntervals[i].start}</option>`
+        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start} selected>${this.hours.AvailableIntervals[i].start}</option>`
       }
       else {
 
-        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i]}>${this.hours.AvailableIntervals[i]}</option>`
-        console.log(this.hours.AvailableIntervals[i])
+        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start}>${this.hours.AvailableIntervals[i].start}</option>`
+        //console.log(this.hours.AvailableIntervals[i])
       }
     }
 
@@ -142,7 +146,7 @@ function Scheduler(shopId) {
 
 
 
-    var buttonHtml = "<button>Schedule !</button>"
+    var buttonHtml = "<button onclick='bookfunction()'>Schedule !</button>"
 
     formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + hoursSelectHtml + buttonHtml)
 
@@ -260,7 +264,39 @@ function Scheduler(shopId) {
 
 }
 
+function bookfunction() {
+  var customer = {Year :this.selectedYear,
+                  MakeId :this.selectedMake,
+                  ModelId :this.selectedModel,
+                  ServiceId :this.selectedService,
+                  AdditionalComment :this.comment,
+                  TimeStart :this.selectedHour,
+                  TimeEnd :this.selectedHourEnd,
+                  FirstName :this.firstName,
+                  LastName :this.lastName,
+                  Email :this.email,
+                  Phone :this.phone,
+                  ShopId :this.shopId}
+
+                $.ajax({
+                  type: "POST",
+                  data :JSON.stringify(customer),
+                  url: "https://api.mechanicadvisor.com/v7/schedule/Book",
+                  contentType: "application/json"
+                })
+
+}
+
+function names() {
+  this.firstName = document.getElementById("firstName").value;
+  this.lastName = document.getElementById("lastName").value;
+  this.phone = document.getElementById("phone").value;
+  this.email = document.getElementById("email").value;
+  this.comment = document.getElementById("comment").value;
+
+}
+
 $(function() {
-  var scheduler = new Scheduler(587365)
+  var scheduler = new Scheduler(576676)
   scheduler.init()
 })

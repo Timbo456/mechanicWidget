@@ -18,6 +18,11 @@ body button {
   color: #800000;
   margin-left:
 }
+body input {
+  color:#046380;
+  margin: 5px;
+  font-size: 20px;
+}
 
 body div {
   margin: 0;
