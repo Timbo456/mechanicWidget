@@ -13,12 +13,15 @@ function Scheduler(shopId) {
   this.email = ""
   this.comment = ""
     //  AvailableIntervals = {}
-  this.date = "2018-03-14"
+  this.date = new Date();
+  this.date = (this.date.getFullYear() + "-" + (this.date.getMonth() +1) + "-" + this.date.getDate());
+
   this.selectedYear = null
   this.selectedModel = null
   this.selectedMake = null
   this.selectedService = null
   this.selectedHour = null
+  this.selectedHourEnd = null
   this.api = {
     url: "https://api.mechanicadvisor.com/v7/schedule/",
     key: "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6",
@@ -44,12 +47,12 @@ function Scheduler(shopId) {
 
       that.models = that.getModels(function () {
         that.selectedModel = that.models[0].Id
-
       this.services = that.getServices(function () {
         that.selectedService = that.services[0].Id
 
       this.hours = that.getHours(function () {
         console.log(that.hours.AvailableIntervals[6]);
+
         //debugger;
         that.selectedHour = that.hours.AvailableIntervals[0];
 
@@ -146,7 +149,7 @@ function Scheduler(shopId) {
 
 
 
-    var buttonHtml = "<button onclick='bookfunction()'>Schedule !</button>"
+    var buttonHtml = '<button id="bookButton">Schedule !</button>';
 
     formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + hoursSelectHtml + buttonHtml)
 
@@ -159,6 +162,8 @@ function Scheduler(shopId) {
     var modelSelectEl = $("#model-select")
     var serviceSelectEl = $("#services-select")
     var hoursSelectEl = $("#hours-select")
+    var bookButton = $("#bookButton");
+    console.log(bookButton);
     var that = this;
 
     yearSelectEl.change(function(e) {
@@ -172,6 +177,12 @@ function Scheduler(shopId) {
         that.bindEvents()
       })
     }.bind(this))
+
+    bookButton.click(function (e) {
+      e.preventDefault();
+      console.log("i get clicked");
+        this.bookfunction();
+    }.bind(this));
 
     makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
@@ -262,39 +273,64 @@ function Scheduler(shopId) {
 
   }.bind(this)
 
+  this.bookfunction =  function() {
+    //console.log(this);
+    names();
+    var that  = this;
+    var hour  = new Date(this.selectedHour).getMilliseconds() + (60 * 60 * 1000);
+    var end = new Date(hour);
+    end = end.getFullYear() +"-" +( end.getMonth() + 1) + "-" + end.getDate() + "T" + end.getHours() + ":00:00";
+    console.log(end);
+
+    var customer = {
+      Year : parseInt(this.selectedYear),
+      MakeId : parseInt(this.selectedMake),
+      ModelId : parseInt(this.selectedModel),
+      ServiceId :parseInt(this.selectedService),
+      AdditionalComment : this.comment,
+      TimeStart : this.selectedHour.start,
+      TimeEnd :this.selectedHour.end,
+      FirstName : this.firstName,
+      LastName : this.lastName,
+      Email : this.email,
+      Phone : parseInt(this.phone),
+      ShopId : this.shopId
+    }
+
+                    console.log('post daataaaaa', customer)
+                  //  var key = "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6";
+                //  $.ajax({
+                  //  type: "POST",
+                    //data :JSON.stringify(customer),
+                    //url: "https://api.mechanicadvisor.com/v7/schedule/Book",
+                  //  contentType: "application/json"
+                //  })
+
+                var bookRequest = new XMLHttpRequest()
+                bookRequest.open("POST", 'https://api.mechanicadvisor.com/v7/schedule/Book')
+
+                bookRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
+                bookRequest.setRequestHeader("Content-Type", "application/json")
+                bookRequest.send(JSON.stringify(customer));
+
+                bookRequest.onload = function() {
+                  console.log(bookRequest.response);
+                };
+
+  }
+
+  function names() {
+    this.firstName = document.getElementById("firstName").value;
+    this.lastName = document.getElementById("lastName").value;
+    this.phone = document.getElementById("phone").value;
+    this.email = document.getElementById("email").value;
+    this.comment = document.getElementById("comment").value;
+
+  }
+
 }
 
-function bookfunction() {
-  var customer = {Year :this.selectedYear,
-                  MakeId :this.selectedMake,
-                  ModelId :this.selectedModel,
-                  ServiceId :this.selectedService,
-                  AdditionalComment :this.comment,
-                  TimeStart :this.selectedHour,
-                  TimeEnd :this.selectedHourEnd,
-                  FirstName :this.firstName,
-                  LastName :this.lastName,
-                  Email :this.email,
-                  Phone :this.phone,
-                  ShopId :this.shopId}
 
-                $.ajax({
-                  type: "POST",
-                  data :JSON.stringify(customer),
-                  url: "https://api.mechanicadvisor.com/v7/schedule/Book",
-                  contentType: "application/json"
-                })
-
-}
-
-function names() {
-  this.firstName = document.getElementById("firstName").value;
-  this.lastName = document.getElementById("lastName").value;
-  this.phone = document.getElementById("phone").value;
-  this.email = document.getElementById("email").value;
-  this.comment = document.getElementById("comment").value;
-
-}
 
 $(function() {
   var scheduler = new Scheduler(576676)
