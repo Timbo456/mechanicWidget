@@ -178,6 +178,24 @@ function Scheduler(shopId) {
       })
     }.bind(this))
 
+    hoursSelectEl.change(function(e) {
+      var availableIntervals = this.hours.AvailableIntervals;
+      for (i = 0; i < availableIntervals.length; i++) {
+        if (availableIntervals[i].start == $(e.currentTarget).val() ) {
+          this.selectedHour = availableIntervals[i];
+          break;
+        }
+      }
+    }.bind(this));
+
+    serviceSelectEl.change(function(e) {
+      this.selectedService = $(e.currentTarget).val();
+    }.bind(this));
+
+    modelSelectEl.change(function(e) {
+      this.selectedModel = $(e.currentTarget).val();
+    }.bind(this));
+
     bookButton.click(function (e) {
       e.preventDefault();
       console.log("i get clicked");
@@ -186,6 +204,7 @@ function Scheduler(shopId) {
 
     makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
+
       this.models = this.getModels(function() {
         this.selectedModel = that.models[0].Id
         that.render()
@@ -275,12 +294,12 @@ function Scheduler(shopId) {
 
   this.bookfunction =  function() {
     //console.log(this);
-    names();
+    this.names();
     var that  = this;
     var hour  = new Date(this.selectedHour).getMilliseconds() + (60 * 60 * 1000);
     var end = new Date(hour);
     end = end.getFullYear() +"-" +( end.getMonth() + 1) + "-" + end.getDate() + "T" + end.getHours() + ":00:00";
-    console.log(end);
+    console.log(this.selectedModel +  " this is model id ");
 
     var customer = {
       Year : parseInt(this.selectedYear),
@@ -293,7 +312,7 @@ function Scheduler(shopId) {
       FirstName : this.firstName,
       LastName : this.lastName,
       Email : this.email,
-      Phone : parseInt(this.phone),
+      Phone :this.phone,
       ShopId : this.shopId
     }
 
@@ -319,7 +338,8 @@ function Scheduler(shopId) {
 
   }
 
-  function names() {
+  this.names = function () {
+    console.log(document.getElementById("firstName").value);
     this.firstName = document.getElementById("firstName").value;
     this.lastName = document.getElementById("lastName").value;
     this.phone = document.getElementById("phone").value;
