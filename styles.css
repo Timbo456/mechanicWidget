@@ -40,6 +40,11 @@ body div {
   color: #FFA500;
   /* margin-left: 10px; */
 }
+input:focus {
+    background-color: #f0f0f5;
+}
+
+
 
 body div option {
   color:#046380;
