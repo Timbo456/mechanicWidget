@@ -9,7 +9,7 @@
   color: #636363;
 }
 
-#bookButton {
+#button-holder {
   width: 200px;
   margin: auto;
   display: block;
@@ -20,97 +20,20 @@
   color:white;
 }
 
-#table {
+#table-holder{
   margin-top: 50px;
 }
 
-
-
-
-/* body {
-  background-color: #8E8583;
-    background-color: #eeeeee;
-    background: linear-gradient(to right, #ffffff, 	#d0d3d8);
-    margin-left: 40px;
+.loader {
+  border: 10px solid #fff; 
+  border-top: 10px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  margin: auto;
+  animation: spin 2s linear infinite;
 }
-
-body h1 {
-  margin: 10;
-  padding: 20px;
-  font-family: sans-serif;
-  color: #FFA500;
-
-  font-size: 2.4em;
-  font-weight: normal;
-  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
-  display: inline-block;
-  align-self: center;
-  margin-left: 40px;
-
+ @keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
-body label{
-  font-size: 20px;
-}
-
-
-body input {
-  color:#046380;
-  margin: 5px;
-  font-size: 20px;
-  margin-right: 200px;
-  margin-left: 40px;
-}
-
-body div {
-  margin: 0;
-  padding: 5px;
-  font-family: sans-serif;
-  color: #FFA500;
-  margin-left: 10px;
-}
-input:focus {
-    background-color: #f0f0f5;
-}
-
-
-
-body div option {
-  color:#046380;
-  background-color: DodgerBlue;
-  font-size: 25px;
-}
-
-body div select{
-  color:Black;
-  background-color: MediumSeaGreen;
-  font-size: 25px;
-}
-
-.hide-me {
-  visibility: hidden;
-  opacity: 0;
-  transform: scale(.75);
-}
-
-
-button {
-  background-color: DodgerBlue;
-  color: black;
-  border: none;
-  padding: 10px 15px;
-  font-size: 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  outline: none;
-  box-shadow: 2px 2px 0 #034154;
-  margin-bottom: 10px;
-  margin-top: 20px;
-  margin-left: 18px;
-  transition: opacity 4s ease-out, transform .4s ease-out, visibility .4s ease-out;
-  position: relative;
-
-}
-
-button:hover {
-  background-color: #034F66;
-} */

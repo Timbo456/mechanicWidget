@@ -1,4 +1,3 @@
-
 function Scheduler(shopId) {
   this.shopId = shopId
   this.years = []
@@ -47,8 +46,6 @@ function Scheduler(shopId) {
   this.init = function () {
 
     var that = this
-    //this.setupTable (this.mockHours.AvailableIntervals);
-
       this.years = this.getYears(function () {
         that.selectedYear = that.years[0]
 
@@ -118,19 +115,8 @@ function Scheduler(shopId) {
       }
     }
     var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
-  //  var hoursSelectOptionsHtml = ""
-  //  for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
-
-    //  if (this.selectedHour === this.hours.AvailableIntervals[i]) {
-      //  hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start} selected>${this.hours.AvailableIntervals[i].start}</option>`
-    //  }
-    //  else {
-    //    hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start}>${this.hours.AvailableIntervals[i].start}</option>`
-    //  }
-  //  }
-
-    //var hoursSelectHtml = "<div class= 'select-wrap form-group'><select id='hours-select' class='form-control'>" + hoursSelectOptionsHtml + "</select></div>"
-    var buttonHtml = '<button class= "btn btn-lg btn-primary" id="bookButton">Schedule !</button>';
+    
+    var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule !</button>';
 
     formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
     buttonDiv.html(buttonHtml);
@@ -144,6 +130,7 @@ function Scheduler(shopId) {
     var serviceSelectEl = $("#services-select")
     var hoursSelectEl = $("#hours-select")
     var bookButton = $("#bookButton");
+    var changeHourEl = $("#change");
 
     var that = this;
 
@@ -178,6 +165,12 @@ function Scheduler(shopId) {
       this.bookfunction();
     }.bind(this));
 
+    changeHourEl.click(function (e) {
+      e.preventDefault();
+      $('#table').show();
+      $('#change').hide();
+    }.bind(this));
+
     makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
       this.models = this.getModels(function() {
@@ -185,8 +178,8 @@ function Scheduler(shopId) {
         that.render()
         that.bindEvents()
       })
-
     }.bind(this))
+
   }.bind(this)
 //////////////
   this.getYears = function (callback) {
@@ -199,7 +192,7 @@ function Scheduler(shopId) {
         callback()
     }.bind(this)
 
-    yearsRequest.send()
+   yearsRequest.send()
 
   }.bind(this)
 ////////////
@@ -266,6 +259,9 @@ function Scheduler(shopId) {
   this.bookfunction =  function() {
     this.names();
     var that  = this;
+    $('#success').hide();
+    $('#preloader').show();
+    $('#bookingform').hide();
 
     var customer = {
       Year : parseInt(this.selectedYear),
@@ -289,6 +285,9 @@ function Scheduler(shopId) {
     bookRequest.send(JSON.stringify(customer));
     bookRequest.onload = function() {
       console.log(bookRequest.response);
+      $('#success').show();
+      $('#preloader').hide();
+      $('#bookingform').hide();
     };
   }
 
@@ -333,10 +332,12 @@ function Scheduler(shopId) {
 
   this.setChosenTime = function(timeString) {
     arr = timeString.split("T")[0];
+
     for (i = 0; i < this.sortedHours[arr].length; i++ ) {
 
       if (this.sortedHours[arr][i].start.trim() === timeString.trim()) {
         this.selectedHour = this.sortedHours[arr][i];
+        $('#hourtext').html('Selected time for appointment is ' + timeString.split("T")[0] + " from " + timeString.split("T")[1] + " till " + this.selectedHour.end.split("T")[1] );
         break;
       }
     }
@@ -349,4 +350,6 @@ scheduler.init()
 function getClickedTime (e) {
   e.preventDefault();
   scheduler.setChosenTime(e.target.id);
+  $('#table').hide();
+  $('#changeHour').show();
 }
