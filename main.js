@@ -74,7 +74,7 @@ function Scheduler(shopId) {
         yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
       }
     }
-    var yearSelectHtml = "<div class='select-wrap'><select id='year-select'>" + yearSelectOptionsHtml + "</select></div>"
+    var yearSelectHtml = "<div class='form-group select-wrap'><select id='year-select' class='form-control'>" + yearSelectOptionsHtml + "</select></div>"
     var makeSelectOptionsHtml = ""
     for (var i = 0; i < this.makes.length; i++) {
       if (parseInt(this.selectedMake) === this.makes[i].Id) {
@@ -84,7 +84,7 @@ function Scheduler(shopId) {
         makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
       }
     }
-    var makeSelectHtml = "<div class='select-wrap'><select id='make-select'>" + makeSelectOptionsHtml + "</select></div>"
+    var makeSelectHtml = "<div class='form-group select-wrap'><select id='make-select' class='form-control'>" + makeSelectOptionsHtml + "</select></div>"
     var modelSelectOptionsHtml = ""
     for (var i = 0; i < this.models.length; i++) {
       if (this.selectedModel === this.models[i]) {
@@ -94,7 +94,7 @@ function Scheduler(shopId) {
         modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
       }
     }
-    var modelSelectHtml = "<div class= 'select-wrap'><select id='model-select'>" + modelSelectOptionsHtml + "</select></div>"
+    var modelSelectHtml = "<div class= 'form-group select-wrap'><select id='model-select' class='form-control'>" + modelSelectOptionsHtml + "</select></div>"
     var serviceSelectOptionsHtml = ""
     for (var i = 0; i < this.services.length; i++) {
       if (this.selectedService === this.services[i]) {
@@ -104,7 +104,7 @@ function Scheduler(shopId) {
         serviceSelectOptionsHtml += `<option value= ${this.services[i].Id}>${this.services[i].Name}</option>`
       }
     }
-    var serviceSelectHtml = "<div class= 'select-wrap'><select id='services-select'>" + serviceSelectOptionsHtml + "</select></div>"
+    var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
     var hoursSelectOptionsHtml = ""
     for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
 
@@ -116,8 +116,8 @@ function Scheduler(shopId) {
       }
     }
 
-    var hoursSelectHtml = "<div class= 'select-wrap'><select id='hours-select'>" + hoursSelectOptionsHtml + "</select></div>"
-    var buttonHtml = '<button id="bookButton">Schedule !</button>';
+    var hoursSelectHtml = "<div class= 'select-wrap form-group'><select id='hours-select' class='form-control'>" + hoursSelectOptionsHtml + "</select></div>"
+    var buttonHtml = '<button class= "btn btn-lg btn-primary" id="bookButton">Schedule !</button>';
 
     formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + hoursSelectHtml + buttonHtml)
 

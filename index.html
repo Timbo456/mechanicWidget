@@ -2,21 +2,47 @@
 <html>
   <head>
     <title>Mechanic Advisor Scheduler</title>
+    <!-- Latest compiled and minified Bootstrap CSS  -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
   </head>
   <body>
 
-    <div class="content">
-      <h1>Appointment Request</h1>
-      <form id="form">
-        <label>Please enter your information:</label>
-        <input type = "text" id="firstName" placeholder="First Name">
-        <input type = "text" id="lastName" placeholder="Last Name">
-        <input type = "text" id="phone" placeholder="Phone Number">
-        <input type = "text" id="email" placeholder="Email Address">
-        <input type = "text" id="comment" placeholder="Additional Comments?">
-        <div id="form-content"></div>
-      </form>
+    <div class="container content">
+
+      <div class="col-sm-12 well">
+          <h2 class="text-center header" > Appointment Request </h2>
+
+
+        <form id="form">
+          <label class="text-center  form-header">Please enter your information:</label>
+          <div class="form-group">
+              <input type = "text" class="form-control" id="firstName" placeholder="First Name">
+          </div>
+
+          <div class="form-group">
+              <input type = "text"  class="form-control" id="lastName" placeholder="Last Name">
+          </div>
+
+          <div class="form-group">
+              <input type = "text" id="phone" class="form-control" placeholder="Phone Number">
+          </div>
+
+          <div class="form-group">
+              <input type = "text" id="email" class="form-control"  placeholder="Email Address">
+          </div>
+
+          <div class="form-group">
+              <input type = "text" id="comment" class="form-control" placeholder="Additional Comments?">
+          </div>
+
+          <div id="form-content" class="form-group">
+              
+          </div>
+        </form>
+
+      </div>
+      
     </div>
 
 
@@ -26,6 +52,7 @@
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="main.js"></script>
   </body>
 </html>
