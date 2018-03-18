@@ -1,5 +1,309 @@
+
 function Scheduler(shopId) {
 
+  this.mockHours = {
+    "UtcOffset":"-05:00:00",
+    "AvailableIntervals":[
+    {
+    "start":"2018-03-20T08:00:00",
+    "end":"2018-03-20T09:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T09:00:00",
+    "end":"2018-03-20T10:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T10:00:00",
+    "end":"2018-03-20T11:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T11:00:00",
+    "end":"2018-03-20T12:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T12:00:00",
+    "end":"2018-03-20T13:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T13:00:00",
+    "end":"2018-03-20T14:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T14:00:00",
+    "end":"2018-03-20T15:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T15:00:00",
+    "end":"2018-03-20T16:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T16:00:00",
+    "end":"2018-03-20T17:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-20T17:00:00",
+    "end":"2018-03-20T18:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T08:00:00",
+    "end":"2018-03-21T09:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T09:00:00",
+    "end":"2018-03-21T10:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T10:00:00",
+    "end":"2018-03-21T11:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T11:00:00",
+    "end":"2018-03-21T12:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T12:00:00",
+    "end":"2018-03-21T13:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T13:00:00",
+    "end":"2018-03-21T14:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T14:00:00",
+    "end":"2018-03-21T15:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T15:00:00",
+    "end":"2018-03-21T16:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T16:00:00",
+    "end":"2018-03-21T17:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-21T17:00:00",
+    "end":"2018-03-21T18:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T08:00:00",
+    "end":"2018-03-22T09:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T09:00:00",
+    "end":"2018-03-22T10:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T10:00:00",
+    "end":"2018-03-22T11:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T11:00:00",
+    "end":"2018-03-22T12:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T12:00:00",
+    "end":"2018-03-22T13:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T13:00:00",
+    "end":"2018-03-22T14:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T14:00:00",
+    "end":"2018-03-22T15:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T15:00:00",
+    "end":"2018-03-22T16:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T16:00:00",
+    "end":"2018-03-22T17:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-22T17:00:00",
+    "end":"2018-03-22T18:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T08:00:00",
+    "end":"2018-03-23T09:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T09:00:00",
+    "end":"2018-03-23T10:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T10:00:00",
+    "end":"2018-03-23T11:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T11:00:00",
+    "end":"2018-03-23T12:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T12:00:00",
+    "end":"2018-03-23T13:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T13:00:00",
+    "end":"2018-03-23T14:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T14:00:00",
+    "end":"2018-03-23T15:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T15:00:00",
+    "end":"2018-03-23T16:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T16:00:00",
+    "end":"2018-03-23T17:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-23T17:00:00",
+    "end":"2018-03-23T18:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T08:00:00",
+    "end":"2018-03-24T09:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T09:00:00",
+    "end":"2018-03-24T10:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T10:00:00",
+    "end":"2018-03-24T11:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T11:00:00",
+    "end":"2018-03-24T12:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T12:00:00",
+    "end":"2018-03-24T13:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T13:00:00",
+    "end":"2018-03-24T14:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T14:00:00",
+    "end":"2018-03-24T15:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T15:00:00",
+    "end":"2018-03-24T16:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    },
+    {
+    "start":"2018-03-24T16:00:00",
+    "end":"2018-03-24T17:00:00",
+    "isTimeBlock":false,
+    "TimeType":0
+    }
+    ]
+    }
+
+  
+  
+  
   this.shopId = shopId
   this.years = []
   this.makes = []
@@ -19,7 +323,8 @@ function Scheduler(shopId) {
   this.selectedMake = null
   this.selectedService = null
   this.selectedHour = null
-  this.selectedHourEnd = null
+  this.sortedHours = {};
+
   this.api = {
     url: "https://api.mechanicadvisor.com/v7/schedule/",
     key: "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6",
@@ -31,11 +336,22 @@ function Scheduler(shopId) {
       hours: "GetShopHours"
     }
   }
+
+  this.weekday = new Array(7);
+  this.weekday[0] =  "Sunday";
+  this.weekday[1] = "Monday";
+  this.weekday[2] = "Tuesday";
+  this.weekday[3] = "Wednesday";
+  this.weekday[4] = "Thursday";
+  this.weekday[5] = "Friday";
+  this.weekday[6] = "Saturday";
+
   this.selection = {}
 
   this.init = function () {
 
     var that = this
+    //this.setupTable (this.mockHours.AvailableIntervals);
 
       this.years = this.getYears(function () {
         that.selectedYear = that.years[0]
@@ -53,9 +369,9 @@ function Scheduler(shopId) {
         that.selectedHour = that.hours.AvailableIntervals[0];
       })
         })
-
           that.render()
           that.bindEvents()
+          
         })
       })
     })
@@ -63,8 +379,9 @@ function Scheduler(shopId) {
   }.bind(this)
 
   this.render = function () {
-
     var formContentEl = $("#form-content")
+    var buttonDiv = $("button-holder");
+
     var yearSelectOptionsHtml = ""
     for (var i = 0; i < this.years.length; i++) {
       if (parseInt(this.selectedYear) === this.years[i]) {
@@ -119,7 +436,8 @@ function Scheduler(shopId) {
     var hoursSelectHtml = "<div class= 'select-wrap form-group'><select id='hours-select' class='form-control'>" + hoursSelectOptionsHtml + "</select></div>"
     var buttonHtml = '<button class= "btn btn-lg btn-primary" id="bookButton">Schedule !</button>';
 
-    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + hoursSelectHtml + buttonHtml)
+    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + hoursSelectHtml);
+    buttonDiv.html(buttonHtml);
 
   }.bind(this)
 
@@ -239,9 +557,9 @@ function Scheduler(shopId) {
     hoursRequest.open("GET", hoursUrl)
     hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     hoursRequest.onload = function() {
-
-        this.hours = JSON.parse(hoursRequest.response)
-        if (callback) callback()
+      this.hours = JSON.parse(hoursRequest.response)
+      this.setupTable(this.hours.AvailableIntervals);
+      if (callback) callback()
     }.bind(this)
 
     hoursRequest.send()
@@ -251,9 +569,6 @@ function Scheduler(shopId) {
   this.bookfunction =  function() {
     this.names();
     var that  = this;
-    var hour  = new Date(this.selectedHour).getMilliseconds() + (60 * 60 * 1000);
-    var end = new Date(hour);
-    end = end.getFullYear() +"-" +( end.getMonth() + 1) + "-" + end.getDate() + "T" + end.getHours() + ":00:00";
 
     var customer = {
       Year : parseInt(this.selectedYear),
@@ -270,27 +585,77 @@ function Scheduler(shopId) {
       ShopId : this.shopId
     }
 
-                var bookRequest = new XMLHttpRequest()
-                bookRequest.open("POST", 'https://api.mechanicadvisor.com/v7/schedule/Book')
-                bookRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
-                bookRequest.setRequestHeader("Content-Type", "application/json")
-                bookRequest.send(JSON.stringify(customer));
-                bookRequest.onload = function() {
-                  console.log(bookRequest.response);
-                };
+    var bookRequest = new XMLHttpRequest()
+    bookRequest.open("POST", 'https://api.mechanicadvisor.com/v7/schedule/Book')
+    bookRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
+    bookRequest.setRequestHeader("Content-Type", "application/json")
+    bookRequest.send(JSON.stringify(customer));
+    bookRequest.onload = function() {
+      console.log(bookRequest.response);
+    };
   }
 
   this.names = function () {
-    this.firstName = document.getElementById("firstName").value;
-    this.lastName = document.getElementById("lastName").value;
-    this.phone = document.getElementById("phone").value;
-    this.email = document.getElementById("email").value;
-    this.comment = document.getElementById("comment").value;
+    this.firstName = $("#firstName").val();
+    this.lastName = $("#lastName").val();
+    this.phone = $("#phone").val();
+    this.email = $("#email").val();
+    this.comment = $("#comment").val();
 
+  }
+
+
+  this.setupTable = function (availableIntervals) {
+   
+    for (i = 0; i < availableIntervals.length; i++ ) {
+      var date = availableIntervals[i].start.split("T")[0];
+      if (Object.keys(this.sortedHours).indexOf(date) == -1) {
+        this.sortedHours[date] = [];
+      }
+      this.sortedHours[date].push(availableIntervals[i]);
+    }
+    this.populateTable ();
+  };
+  
+  this.populateTable = function () {
+    var body = '';
+    var tableBodyEl = $('#tbody');
+    for (dayDate in this.sortedHours) {
+      day  = this.weekday[new Date (dayDate).getDay()];
+      body += '<tr> <td>' + day + '</td> <td>';
+
+      for (i = 0; i < this.sortedHours[dayDate].length; i++) {
+        body += ' <button onclick="getClickedTime(event)" class="btn btn-sm btn-default" id ="'+ this.sortedHours[dayDate][i].start + ' "> ' + this.sortedHours[dayDate][i].start.split("T")[1] + '</button>';
+      } 
+
+      body += '</td></tr>'
+    }
+    tableBodyEl.html(body)
+  }
+
+
+  this.setChosenTime = function(timeString) {
+    arr = timeString.split("T")[0];
+    for (i = 0; i < this.sortedHours[arr].length; i++ ) {
+      
+      if (this.sortedHours[arr][i].start.trim() === timeString.trim()) {
+        this.selectedHour = this.sortedHours[arr][i];
+        break;
+      }
+    }
   }
 }
 
-$(function() {
-  var scheduler = new Scheduler(576676)
-  scheduler.init()
-})
+var scheduler = new Scheduler(576676)
+scheduler.init()
+
+function getClickedTime (e) {
+  e.preventDefault();
+  scheduler.setChosenTime(e.target.id);
+}
+
+
+
+
+  
+

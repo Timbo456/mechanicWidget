@@ -15,6 +15,16 @@
   display: block;
 }
 
+.chosen {
+  background-color: darkred;
+  color:white;
+}
+
+#table {
+  margin-top: 50px;
+}
+
+
 
 
 /* body {
