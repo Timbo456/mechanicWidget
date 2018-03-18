@@ -1,309 +1,5 @@
 
 function Scheduler(shopId) {
-
-  this.mockHours = {
-    "UtcOffset":"-05:00:00",
-    "AvailableIntervals":[
-    {
-    "start":"2018-03-20T08:00:00",
-    "end":"2018-03-20T09:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T09:00:00",
-    "end":"2018-03-20T10:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T10:00:00",
-    "end":"2018-03-20T11:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T11:00:00",
-    "end":"2018-03-20T12:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T12:00:00",
-    "end":"2018-03-20T13:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T13:00:00",
-    "end":"2018-03-20T14:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T14:00:00",
-    "end":"2018-03-20T15:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T15:00:00",
-    "end":"2018-03-20T16:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T16:00:00",
-    "end":"2018-03-20T17:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-20T17:00:00",
-    "end":"2018-03-20T18:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T08:00:00",
-    "end":"2018-03-21T09:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T09:00:00",
-    "end":"2018-03-21T10:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T10:00:00",
-    "end":"2018-03-21T11:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T11:00:00",
-    "end":"2018-03-21T12:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T12:00:00",
-    "end":"2018-03-21T13:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T13:00:00",
-    "end":"2018-03-21T14:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T14:00:00",
-    "end":"2018-03-21T15:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T15:00:00",
-    "end":"2018-03-21T16:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T16:00:00",
-    "end":"2018-03-21T17:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-21T17:00:00",
-    "end":"2018-03-21T18:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T08:00:00",
-    "end":"2018-03-22T09:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T09:00:00",
-    "end":"2018-03-22T10:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T10:00:00",
-    "end":"2018-03-22T11:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T11:00:00",
-    "end":"2018-03-22T12:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T12:00:00",
-    "end":"2018-03-22T13:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T13:00:00",
-    "end":"2018-03-22T14:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T14:00:00",
-    "end":"2018-03-22T15:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T15:00:00",
-    "end":"2018-03-22T16:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T16:00:00",
-    "end":"2018-03-22T17:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-22T17:00:00",
-    "end":"2018-03-22T18:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T08:00:00",
-    "end":"2018-03-23T09:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T09:00:00",
-    "end":"2018-03-23T10:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T10:00:00",
-    "end":"2018-03-23T11:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T11:00:00",
-    "end":"2018-03-23T12:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T12:00:00",
-    "end":"2018-03-23T13:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T13:00:00",
-    "end":"2018-03-23T14:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T14:00:00",
-    "end":"2018-03-23T15:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T15:00:00",
-    "end":"2018-03-23T16:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T16:00:00",
-    "end":"2018-03-23T17:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-23T17:00:00",
-    "end":"2018-03-23T18:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T08:00:00",
-    "end":"2018-03-24T09:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T09:00:00",
-    "end":"2018-03-24T10:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T10:00:00",
-    "end":"2018-03-24T11:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T11:00:00",
-    "end":"2018-03-24T12:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T12:00:00",
-    "end":"2018-03-24T13:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T13:00:00",
-    "end":"2018-03-24T14:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T14:00:00",
-    "end":"2018-03-24T15:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T15:00:00",
-    "end":"2018-03-24T16:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    },
-    {
-    "start":"2018-03-24T16:00:00",
-    "end":"2018-03-24T17:00:00",
-    "isTimeBlock":false,
-    "TimeType":0
-    }
-    ]
-    }
-
-  
-  
-  
   this.shopId = shopId
   this.years = []
   this.makes = []
@@ -371,7 +67,7 @@ function Scheduler(shopId) {
         })
           that.render()
           that.bindEvents()
-          
+
         })
       })
     })
@@ -380,7 +76,7 @@ function Scheduler(shopId) {
 
   this.render = function () {
     var formContentEl = $("#form-content")
-    var buttonDiv = $("button-holder");
+    var buttonDiv = $("#button-holder");
 
     var yearSelectOptionsHtml = ""
     for (var i = 0; i < this.years.length; i++) {
@@ -422,21 +118,21 @@ function Scheduler(shopId) {
       }
     }
     var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
-    var hoursSelectOptionsHtml = ""
-    for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
+  //  var hoursSelectOptionsHtml = ""
+  //  for (var i = 0; i < this.hours.AvailableIntervals.length; i++) {
 
-      if (this.selectedHour === this.hours.AvailableIntervals[i]) {
-        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start} selected>${this.hours.AvailableIntervals[i].start}</option>`
-      }
-      else {
-        hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start}>${this.hours.AvailableIntervals[i].start}</option>`
-      }
-    }
+    //  if (this.selectedHour === this.hours.AvailableIntervals[i]) {
+      //  hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start} selected>${this.hours.AvailableIntervals[i].start}</option>`
+    //  }
+    //  else {
+    //    hoursSelectOptionsHtml += `<option value= ${this.hours.AvailableIntervals[i].start}>${this.hours.AvailableIntervals[i].start}</option>`
+    //  }
+  //  }
 
-    var hoursSelectHtml = "<div class= 'select-wrap form-group'><select id='hours-select' class='form-control'>" + hoursSelectOptionsHtml + "</select></div>"
+    //var hoursSelectHtml = "<div class= 'select-wrap form-group'><select id='hours-select' class='form-control'>" + hoursSelectOptionsHtml + "</select></div>"
     var buttonHtml = '<button class= "btn btn-lg btn-primary" id="bookButton">Schedule !</button>';
 
-    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml + hoursSelectHtml);
+    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
     buttonDiv.html(buttonHtml);
 
   }.bind(this)
@@ -558,6 +254,7 @@ function Scheduler(shopId) {
     hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     hoursRequest.onload = function() {
       this.hours = JSON.parse(hoursRequest.response)
+      console.log(this.hours.AvailableIntervals);
       this.setupTable(this.hours.AvailableIntervals);
       if (callback) callback()
     }.bind(this)
@@ -606,7 +303,7 @@ function Scheduler(shopId) {
 
 
   this.setupTable = function (availableIntervals) {
-   
+
     for (i = 0; i < availableIntervals.length; i++ ) {
       var date = availableIntervals[i].start.split("T")[0];
       if (Object.keys(this.sortedHours).indexOf(date) == -1) {
@@ -616,17 +313,17 @@ function Scheduler(shopId) {
     }
     this.populateTable ();
   };
-  
+
   this.populateTable = function () {
     var body = '';
     var tableBodyEl = $('#tbody');
     for (dayDate in this.sortedHours) {
-      day  = this.weekday[new Date (dayDate).getDay()];
+      day  = this.weekday[(new Date (dayDate).getDay()) + 1];
       body += '<tr> <td>' + day + '</td> <td>';
 
       for (i = 0; i < this.sortedHours[dayDate].length; i++) {
         body += ' <button onclick="getClickedTime(event)" class="btn btn-sm btn-default" id ="'+ this.sortedHours[dayDate][i].start + ' "> ' + this.sortedHours[dayDate][i].start.split("T")[1] + '</button>';
-      } 
+      }
 
       body += '</td></tr>'
     }
@@ -637,7 +334,7 @@ function Scheduler(shopId) {
   this.setChosenTime = function(timeString) {
     arr = timeString.split("T")[0];
     for (i = 0; i < this.sortedHours[arr].length; i++ ) {
-      
+
       if (this.sortedHours[arr][i].start.trim() === timeString.trim()) {
         this.selectedHour = this.sortedHours[arr][i];
         break;
@@ -653,9 +350,3 @@ function getClickedTime (e) {
   e.preventDefault();
   scheduler.setChosenTime(e.target.id);
 }
-
-
-
-
-  
-
