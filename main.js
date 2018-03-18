@@ -115,7 +115,7 @@ function Scheduler(shopId) {
       }
     }
     var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
-    
+
     var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule !</button>';
 
     formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
@@ -351,5 +351,5 @@ function getClickedTime (e) {
   e.preventDefault();
   scheduler.setChosenTime(e.target.id);
   $('#table').hide();
-  $('#changeHour').show();
+  $('#change').show();
 }
