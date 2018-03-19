@@ -116,7 +116,7 @@ function Scheduler(shopId) {
     }
     var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
 
-    var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule !</button>';
+    var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule!</button>';
 
     formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
     buttonDiv.html(buttonHtml);
