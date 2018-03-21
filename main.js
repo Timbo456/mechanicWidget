@@ -19,9 +19,10 @@ function Scheduler(shopId) {
   this.selectedService = null
   this.selectedHour = null
   this.sortedHours = {};
+  var proxy = 'https://cors-anywhere.herokuapp.com/';
 
   this.api = {
-    url: "https://api.mechanicadvisor.com/v7/schedule/",
+    url: proxy + "https://api.mechanicadvisor.com/v7/schedule/",
     key: "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6",
     endpoints: {
       shopYears: "GetShopVehicleYears",
@@ -185,7 +186,7 @@ function Scheduler(shopId) {
   this.getYears = function (callback) {
     var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
     var yearsRequest = new XMLHttpRequest()
-    yearsRequest.open("GET", shopYearsUrl)
+    yearsRequest.open("GET", proxy + shopYearsUrl)
     yearsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     yearsRequest.onload = function() {
         this.years = JSON.parse(yearsRequest.response)
@@ -199,7 +200,7 @@ function Scheduler(shopId) {
   this.getMakes = function (callback) {
     var makesUrl = this.api.url + this.api.endpoints.makes + '?param.year=' + this.selectedYear + "&param.shopId=" + this.shopId
     var makesRequest = new XMLHttpRequest()
-    makesRequest.open("GET", makesUrl)
+    makesRequest.open("GET", proxy + makesUrl)
     makesRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     makesRequest.onload = function() {
         //console.log(makesRequest)
@@ -214,7 +215,7 @@ function Scheduler(shopId) {
   this.getModels = function (callback) {
     var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake + "&param.shopId=" + this.shopId
     var modelsRequest = new XMLHttpRequest()
-    modelsRequest.open("GET", modelsUrl)
+    modelsRequest.open("GET", proxy + modelsUrl)
     modelsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     modelsRequest.onload = function() {
         this.models = JSON.parse(modelsRequest.response)
@@ -228,7 +229,7 @@ function Scheduler(shopId) {
   this.getServices = function(callback) {
     var servicesURL = this.api.url + this.api.endpoints.services + "?param.shopId=" + this.shopId
     var serviceRequest = new XMLHttpRequest()
-    serviceRequest.open("GET", servicesURL)
+    serviceRequest.open("GET", proxy + servicesURL)
     serviceRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     serviceRequest.onload = function() {
 
@@ -243,7 +244,7 @@ function Scheduler(shopId) {
   this.getHours = function (callback) {
     var hoursUrl = this.api.url + this.api.endpoints.hours + "?param.date=" + this.date + "&param.shopId=" + this.shopId
     var hoursRequest = new XMLHttpRequest()
-    hoursRequest.open("GET", hoursUrl)
+    hoursRequest.open("GET", proxy + hoursUrl)
     hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     hoursRequest.onload = function() {
       this.hours = JSON.parse(hoursRequest.response)
@@ -279,7 +280,7 @@ function Scheduler(shopId) {
     }
 
     var bookRequest = new XMLHttpRequest()
-    bookRequest.open("POST", 'https://api.mechanicadvisor.com/v7/schedule/Book')
+    bookRequest.open("POST", proxy + 'https://api.mechanicadvisor.com/v7/schedule/Book')
     bookRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     bookRequest.setRequestHeader("Content-Type", "application/json")
     bookRequest.send(JSON.stringify(customer));
