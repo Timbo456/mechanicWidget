@@ -1,4 +1,424 @@
 function Scheduler(shopId) {
+  this.nextHours = {
+    "UtcOffset": "-05:00:00",
+    "AvailableIntervals": [
+      {
+        "start": "2018-03-26T08:00:00",
+        "end": "2018-03-26T09:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T09:00:00",
+        "end": "2018-03-26T10:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T10:00:00",
+        "end": "2018-03-26T11:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T11:00:00",
+        "end": "2018-03-26T12:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T12:00:00",
+        "end": "2018-03-26T13:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T13:00:00",
+        "end": "2018-03-26T14:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T14:00:00",
+        "end": "2018-03-26T15:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T15:00:00",
+        "end": "2018-03-26T16:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T16:00:00",
+        "end": "2018-03-26T17:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-26T17:00:00",
+        "end": "2018-03-26T18:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T08:00:00",
+        "end": "2018-03-27T09:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T09:00:00",
+        "end": "2018-03-27T10:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T10:00:00",
+        "end": "2018-03-27T11:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T11:00:00",
+        "end": "2018-03-27T12:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T12:00:00",
+        "end": "2018-03-27T13:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T13:00:00",
+        "end": "2018-03-27T14:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T14:00:00",
+        "end": "2018-03-27T15:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T15:00:00",
+        "end": "2018-03-27T16:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T16:00:00",
+        "end": "2018-03-27T17:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-27T17:00:00",
+        "end": "2018-03-27T18:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T08:00:00",
+        "end": "2018-03-28T09:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T09:00:00",
+        "end": "2018-03-28T10:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T10:00:00",
+        "end": "2018-03-28T11:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T11:00:00",
+        "end": "2018-03-28T12:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T12:00:00",
+        "end": "2018-03-28T13:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T13:00:00",
+        "end": "2018-03-28T14:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T14:00:00",
+        "end": "2018-03-28T15:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T15:00:00",
+        "end": "2018-03-28T16:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T16:00:00",
+        "end": "2018-03-28T17:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-28T17:00:00",
+        "end": "2018-03-28T18:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T08:00:00",
+        "end": "2018-03-29T09:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T09:00:00",
+        "end": "2018-03-29T10:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T10:00:00",
+        "end": "2018-03-29T11:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T11:00:00",
+        "end": "2018-03-29T12:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T12:00:00",
+        "end": "2018-03-29T13:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T13:00:00",
+        "end": "2018-03-29T14:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T14:00:00",
+        "end": "2018-03-29T15:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T15:00:00",
+        "end": "2018-03-29T16:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T16:00:00",
+        "end": "2018-03-29T17:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-29T17:00:00",
+        "end": "2018-03-29T18:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T08:00:00",
+        "end": "2018-03-30T09:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T09:00:00",
+        "end": "2018-03-30T10:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T10:00:00",
+        "end": "2018-03-30T11:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T11:00:00",
+        "end": "2018-03-30T12:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T12:00:00",
+        "end": "2018-03-30T13:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T13:00:00",
+        "end": "2018-03-30T14:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T14:00:00",
+        "end": "2018-03-30T15:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T15:00:00",
+        "end": "2018-03-30T16:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T16:00:00",
+        "end": "2018-03-30T17:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-30T17:00:00",
+        "end": "2018-03-30T18:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T08:00:00",
+        "end": "2018-03-31T09:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T09:00:00",
+        "end": "2018-03-31T10:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T10:00:00",
+        "end": "2018-03-31T11:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T11:00:00",
+        "end": "2018-03-31T12:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T12:00:00",
+        "end": "2018-03-31T13:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T13:00:00",
+        "end": "2018-03-31T14:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T14:00:00",
+        "end": "2018-03-31T15:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T15:00:00",
+        "end": "2018-03-31T16:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-31T16:00:00",
+        "end": "2018-03-31T17:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      }
+    ]
+  }
+
+  this.mockHours = {
+    "UtcOffset": "-05:00:00",
+    "AvailableIntervals": [
+      {
+        "start": "2018-03-24T08:00:00",
+        "end": "2018-03-24T09:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T09:00:00",
+        "end": "2018-03-24T10:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T10:00:00",
+        "end": "2018-03-24T11:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T11:00:00",
+        "end": "2018-03-24T12:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T12:00:00",
+        "end": "2018-03-24T13:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T13:00:00",
+        "end": "2018-03-24T14:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T14:00:00",
+        "end": "2018-03-24T15:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T15:00:00",
+        "end": "2018-03-24T16:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      },
+      {
+        "start": "2018-03-24T16:00:00",
+        "end": "2018-03-24T17:00:00",
+        "isTimeBlock": false,
+        "TimeType": 0
+      }
+    ]
+  }
+
   this.shopId = shopId
   this.years = []
   this.makes = []
@@ -12,7 +432,8 @@ function Scheduler(shopId) {
   this.email = ""
   this.comment = ""
   this.date = new Date();
-  this.date = (this.date.getFullYear() + "-" + (this.date.getMonth() +1) + "-" + this.date.getDate());
+  this.dateString = (this.date.getFullYear() + "-" + (this.date.getMonth() +1) + "-" + this.date.getDate());
+  this.queryDate = null;
   this.selectedYear = null
   this.selectedModel = null
   this.selectedMake = null
@@ -41,11 +462,26 @@ function Scheduler(shopId) {
   this.weekday[5] = "Friday";
   this.weekday[6] = "Saturday";
 
+  this.additionalComment = new Array(6);
+  this.additionalComment[0] = "Drop Off (Have Your Own Ride)";
+  this.additionalComment[1] = "Drop Off (Hertz Rental Car, Under $30/day)";
+  this.additionalComment[2] = "Drop Off (Courtesy Shuttle (Uber)";
+  this.additionalComment[3] = "Drop Off (Before/After Hours Drop Box)";
+  this.additionalComment[4] = "Drop Off (Tow in)";
+  this.additionalComment[5] = "Waiting (not currently avail)";
+
   this.selection = {}
 
   this.init = function () {
 
     var that = this
+
+
+    this.bindEvents();
+    this.setupTable(this.mockHours.AvailableIntervals);
+
+
+
       this.years = this.getYears(function () {
         that.selectedYear = that.years[0]
 
@@ -58,7 +494,7 @@ function Scheduler(shopId) {
       this.services = that.getServices(function () {
         that.selectedService = that.services[0].Id
 
-      this.hours = that.getHours(function () {
+      this.hours = that.getHours(that.dateString, function () {
         that.selectedHour = that.hours.AvailableIntervals[0];
       })
         })
@@ -75,16 +511,20 @@ function Scheduler(shopId) {
     var formContentEl = $("#form-content")
     var buttonDiv = $("#button-holder");
 
+    var additionalCommentSelect = "";
+    for (var i = 0; i < this.additionalComment.length; i++) {
+      additionalCommentSelect += `<option value=${this.additionalComment[i]} >${this.years[i]}</option>`
+    }
+    var commentSelectHtml = "<div class='form-group select-wrap'><select id='comment-select' class='form-control'>" + additionalCommentSelect + "</select></div>"
+
+
     var yearSelectOptionsHtml = ""
+    yearSelectOptionsHtml += `<option value=0 selected>Year</option>`
     for (var i = 0; i < this.years.length; i++) {
-      if (parseInt(this.selectedYear) === this.years[i]) {
-        yearSelectOptionsHtml += `<option value=${this.years[i]} selected>${this.years[i]}</option>`
-      }
-      else {
         yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
-      }
     }
     var yearSelectHtml = "<div class='form-group select-wrap'><select id='year-select' class='form-control'>" + yearSelectOptionsHtml + "</select></div>"
+    
     var makeSelectOptionsHtml = ""
     for (var i = 0; i < this.makes.length; i++) {
       if (parseInt(this.selectedMake) === this.makes[i].Id) {
@@ -118,7 +558,7 @@ function Scheduler(shopId) {
     
     var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule !</button>';
 
-    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
+    formContentEl.html(commentSelectHtml + yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
     buttonDiv.html(buttonHtml);
 
   }.bind(this)
@@ -131,8 +571,20 @@ function Scheduler(shopId) {
     var hoursSelectEl = $("#hours-select")
     var bookButton = $("#bookButton");
     var changeHourEl = $("#change");
+    var nextButton = $("#next");
+    var prevButton = $("#prev");
 
     var that = this;
+
+    nextButton.click(function(e) {
+      e.preventDefault();
+      this.next();
+    }.bind(this));
+
+    prevButton.click(function(e) {
+      e.preventDefault();
+      this.previous();
+    }.bind(this));
 
     yearSelectEl.change(function(e) {
       this.selectedYear = $(e.currentTarget).val()
@@ -192,7 +644,7 @@ function Scheduler(shopId) {
         callback()
     }.bind(this)
 
-   yearsRequest.send()
+   //yearsRequest.send()
 
   }.bind(this)
 ////////////
@@ -207,7 +659,7 @@ function Scheduler(shopId) {
         if (callback) callback()
     }.bind(this)
 
-    makesRequest.send()
+    //makesRequest.send()
 
   }.bind(this)
 ///////////
@@ -221,7 +673,7 @@ function Scheduler(shopId) {
         if (callback) callback()
     }.bind(this)
 
-    modelsRequest.send()
+    //modelsRequest.send()
 
   }.bind(this)
 /////////////
@@ -236,12 +688,12 @@ function Scheduler(shopId) {
       if (callback) callback()
     }.bind(this)
 
-    serviceRequest.send()
+    //serviceRequest.send()
 
   }.bind(this)
   /////////////////////
-  this.getHours = function (callback) {
-    var hoursUrl = this.api.url + this.api.endpoints.hours + "?param.date=" + this.date + "&param.shopId=" + this.shopId
+  this.getHours = function (dateString, callback) {
+    var hoursUrl = this.api.url + this.api.endpoints.hours + "?param.date=" + dateString + "&param.shopId=" + this.shopId
     var hoursRequest = new XMLHttpRequest()
     hoursRequest.open("GET", hoursUrl)
     hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
@@ -252,7 +704,7 @@ function Scheduler(shopId) {
       if (callback) callback()
     }.bind(this)
 
-    hoursRequest.send()
+   // hoursRequest.send()
 
   }.bind(this)
 
@@ -305,6 +757,7 @@ function Scheduler(shopId) {
 
     for (i = 0; i < availableIntervals.length; i++ ) {
       var date = availableIntervals[i].start.split("T")[0];
+      console.log(date);
       if (Object.keys(this.sortedHours).indexOf(date) == -1) {
         this.sortedHours[date] = [];
       }
@@ -316,8 +769,14 @@ function Scheduler(shopId) {
   this.populateTable = function () {
     var body = '';
     var tableBodyEl = $('#tbody');
+    tableBodyEl.innerHTML = '';
+    //var myNode = document.getElementById("foo");
+    // while (tableBodyEl.firstChild) {
+    //     myNode.removeChild(myNode.firstChild);
+    // }
+
     for (dayDate in this.sortedHours) {
-      day  = this.weekday[(new Date (dayDate).getDay()) + 1];
+      day  = this.weekday[(new Date (dayDate).getDay()) /* + 1*/ ];
       body += '<tr> <td>' + day + '</td> <td>';
 
       for (i = 0; i < this.sortedHours[dayDate].length; i++) {
@@ -341,6 +800,33 @@ function Scheduler(shopId) {
         break;
       }
     }
+  }
+
+  this.next = function() {
+
+    if (this.querydate == null) this.queryDate = new Date();
+
+    this.queryDate.setDate(this.date.getDate() + 7);
+    var queryDateString = (this.queryDate.getFullYear() + "-" + (this.queryDate.getMonth() +1) + "-" + this.queryDate.getDate());
+    this.getHours(queryDateString, function() {
+      this.selectedHour = this.hours.AvailableIntervals[0];
+    }.bind(this));
+    
+    this.setupTable(this.nextHours.AvailableIntervals);
+
+  }
+
+  this.previous = function () {
+    console.log(this.queryDate);
+      if ((this.queryDate !== null ) && (this.queryDate.getDate() - this.date.getDate() >= 7)) {
+        this.queryDate.setDate(this.date.getDate() - 7);
+        var queryDateString = (this.queryDate.getFullYear() + "-" + (this.queryDate.getMonth() +1) + "-" + this.queryDate.getDate());
+        this.getHours(queryDateString, function() {
+          this.selectedHour = this.hours.AvailableIntervals[0];
+        }.bind(this));
+
+        this.setupTable(this.mockHours.AvailableIntervals);
+      }
   }
 }
 
