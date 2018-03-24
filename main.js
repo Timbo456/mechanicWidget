@@ -502,31 +502,59 @@ function Scheduler(shopId) {
     var buttonDiv = $("#button-holder");
 
     var yearSelectOptionsHtml = ""
-    yearSelectOptionsHtml += `<option value="none" selected>Select Year</option>`
+    if (this.selectedYear === 'none') {
+      yearSelectOptionsHtml += `<option value="none" selected>Select Year</option>`
+    }
+    
     for (var i = 0; i < this.years.length; i++) {
-      yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
+      if (this.selectedYear === this.years[i]) {
+        yearSelectOptionsHtml += `<option value=${this.years[i]} selected>${this.years[i]}</option>`
+      } else {
+        yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
+      }
     }
     var yearSelectHtml = "<div class='form-group select-wrap'><select id='year-select' class='form-control'>" + yearSelectOptionsHtml + "</select></div>"
 
     var makeSelectOptionsHtml = ""
-    makeSelectOptionsHtml += `<option value="none" selected>Select Make</option>`
+    if (this.selectedMake === 'none') {
+      makeSelectOptionsHtml += `<option value="none" selected>Select Make</option>`
+    }
+
     for (var i = 0; i < this.makes.length; i++) {
-      makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
+      if (this.selectedMake === this.makes[i].Id) {
+        makeSelectOptionsHtml += `<option value=${this.makes[i].Id} selected> ${this.makes[i].Name}</option>`
+      } else{
+        makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
+      }
     }
     var makeSelectHtml = "<div class='form-group select-wrap'><select id='make-select' class='form-control'>" + makeSelectOptionsHtml + "</select></div>"
 
     var modelSelectOptionsHtml = ""
-    modelSelectOptionsHtml += `<option value= "none" selected>Select Model</option>`
+    if (this.selectedModel === "none") {
+      modelSelectOptionsHtml += `<option value= "none" selected>Select Model</option>`
+    }
+
     for (var i = 0; i < this.models.length; i++) {
+      if (this.selectedModel === this.models[i].Id) {
+        modelSelectOptionsHtml += `<option value= ${this.models[i].Id} selected>${this.models[i].Name}</option>`
+      } else {
         modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
+      }
     }
     var modelSelectHtml = "<div class= 'form-group select-wrap'><select id='model-select' class='form-control'>" + modelSelectOptionsHtml + "</select></div>"
 
     var serviceSelectOptionsHtml = "";
-    serviceSelectOptionsHtml += `<option value= "none"} selected>Select Service</option>`
-    for (var i = 0; i < this.services.length; i++) {
-      serviceSelectOptionsHtml += `<option value= ${this.services[i].Id}>${this.services[i].Name}</option>`
+    if (this.selectedService == "none") {
+      serviceSelectOptionsHtml += `<option value= "none"} selected>Select Service</option>`
     }
+    for (var i = 0; i < this.services.length; i++) {
+      if(this.selectedService == this.services[i].Id) {
+        serviceSelectOptionsHtml += `<option value= ${this.services[i].Id} selected>${this.services[i].Name}</option>`
+      } else {
+        serviceSelectOptionsHtml += `<option value= ${this.services[i].Id}>${this.services[i].Name}</option>`
+      }
+    }
+    
     var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
 
     var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule!</button>';
