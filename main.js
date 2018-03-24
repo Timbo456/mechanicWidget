@@ -471,14 +471,14 @@ function Scheduler(shopId) {
 
   //  this.bindEvents();
     //this.setupTable(this.mockHours.AvailableIntervals);
-    
+
       this.years = this.getYears(function () {
         that.selectedYear = "none"
-
-      that.makes = that.getMakes(function () {
+        console.log(that.years);
+      that.makes = that.getMakes(that.years[0], function () {
         that.selectedMake = "none"
 
-      that.models = that.getModels(function () {
+      that.models = that.getModels(that.years[0], that.makes[0].id, function () {
         that.selectedModel = "none"
 
       this.services = that.getServices(function () {
@@ -514,14 +514,14 @@ function Scheduler(shopId) {
       makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
     }
     var makeSelectHtml = "<div class='form-group select-wrap'><select id='make-select' class='form-control'>" + makeSelectOptionsHtml + "</select></div>"
-    
+
     var modelSelectOptionsHtml = ""
     modelSelectOptionsHtml += `<option value= "none" selected>Select Model</option>`
     for (var i = 0; i < this.models.length; i++) {
         modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
     }
     var modelSelectHtml = "<div class= 'form-group select-wrap'><select id='model-select' class='form-control'>" + modelSelectOptionsHtml + "</select></div>"
-    
+
     var serviceSelectOptionsHtml = "";
     serviceSelectOptionsHtml += `<option value= "none"} selected>Select Service</option>`
     for (var i = 0; i < this.services.length; i++) {
@@ -564,7 +564,8 @@ function Scheduler(shopId) {
       this.selectedYear = $(e.currentTarget).val()
       this.selectedMake = "none";
       this.selectedModel = "none";
-      this.makes = this.getMakes(function () {
+      this.makes = this.getMakes(this.selectedYear, function () {
+        console.log("rerendering makes");
         that.render()
         that.bindEvents()
       })
@@ -605,8 +606,9 @@ function Scheduler(shopId) {
 
     makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
-      this.models = this.getModels(function() {
+      this.models = this.getModels(this.selectedYear, this.selectedMake, function() {
         this.selectedModel = "none"
+        console.log("rerendering makes");
         that.render()
         that.bindEvents()
       })
@@ -630,8 +632,8 @@ function Scheduler(shopId) {
 
   }.bind(this)
 ////////////
-  this.getMakes = function (callback) {
-    var makesUrl = this.api.url + this.api.endpoints.makes + '?param.year=' + this.selectedYear + "&param.shopId=" + this.shopId
+  this.getMakes = function (year, callback) {
+    var makesUrl = this.api.url + this.api.endpoints.makes + '?param.year=' + year + "&param.shopId=" + this.shopId
     var makesRequest = new XMLHttpRequest()
     makesRequest.open("GET", makesUrl)
     makesRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
@@ -645,8 +647,8 @@ function Scheduler(shopId) {
 
   }.bind(this)
 ///////////
-  this.getModels = function (callback) {
-    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake + "&param.shopId=" + this.shopId
+  this.getModels = function (year, make,callback) {
+    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + year + "&param.makeId=" + make + "&param.shopId=" + this.shopId
     var modelsRequest = new XMLHttpRequest()
     modelsRequest.open("GET", modelsUrl)
     modelsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
@@ -757,7 +759,7 @@ function Scheduler(shopId) {
     tableBodyEl.innerHTML = '';
 
     for (dayDate in this.sortedHours) {
-      day  = this.weekday[(new Date (dayDate).getDay()) /* + 1*/ ];
+      day  = this.weekday[(new Date (dayDate).getDay())  + 1 ];
       body += '<tr> <td>' + day + '</td> <td>';
 
       for (i = 0; i < this.sortedHours[dayDate].length; i++) {
@@ -792,6 +794,7 @@ function Scheduler(shopId) {
     }
     var queryDateString = (this.queryDate.getFullYear() + "-" + (this.queryDate.getMonth() +1) + "-" + this.queryDate.getDate());
     this.getHours(queryDateString, function() {
+      console.log(this.hours.AvailableIntervals);
       this.selectedHour = this.hours.AvailableIntervals[0];
     }.bind(this));
 
@@ -800,11 +803,12 @@ function Scheduler(shopId) {
   }
 
   this.previous = function () {
-    console.log(this.queryDate);
+
       if ((this.queryDate !== null ) && (this.queryDate.getDate() - this.date.getDate() >= 7)) {
         this.queryDate.setDate(this.date.getDate() - 7);
         var queryDateString = (this.queryDate.getFullYear() + "-" + (this.queryDate.getMonth() +1) + "-" + this.queryDate.getDate());
         this.getHours(queryDateString, function() {
+          console.log(this.hours.AvailableIntervals);
           this.selectedHour = this.hours.AvailableIntervals[0];
         }.bind(this));
 
