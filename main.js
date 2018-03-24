@@ -300,13 +300,15 @@ function Scheduler(shopId) {
     $('#preloader').show();
     $('#bookingform').hide();
 
-
+console.log(this.comment, this.extraComment)
+console.log("asdfasdfasdfasdf ")
     var customer = {
       Year : parseInt(this.selectedYear),
       MakeId : parseInt(this.selectedMake),
       ModelId : parseInt(this.selectedModel),
       ServiceId :parseInt(this.selectedService),
       AdditionalComment : this.comment + " " + this.extraComment,
+      //Comments : this.comment + " " + this.extraComment,
       TimeStart : this.selectedHour.start,
       TimeEnd :this.selectedHour.end,
       FirstName : this.firstName,
@@ -320,6 +322,7 @@ function Scheduler(shopId) {
     bookRequest.open("POST",  'https://api.mechanicadvisor.com/v7/schedule/Book')
     bookRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     bookRequest.setRequestHeader("Content-Type", "application/json")
+    console.log(bookRequest);
     bookRequest.send(JSON.stringify(customer));
     bookRequest.onload = function() {
 
