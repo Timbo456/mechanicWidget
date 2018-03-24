@@ -431,14 +431,15 @@ function Scheduler(shopId) {
   this.lastName = ""
   this.email = ""
   this.comment = ""
+  this.extraComment = "";
   this.date = new Date();
   this.dateString = (this.date.getFullYear() + "-" + (this.date.getMonth() +1) + "-" + this.date.getDate());
   this.queryDate = null;
-  this.selectedYear = null
-  this.selectedModel = null
-  this.selectedMake = null
-  this.selectedService = null
-  this.selectedHour = null
+  this.selectedYear = "none"
+  this.selectedModel = "none"
+  this.selectedMake = "none"
+  this.selectedService = "none"
+  this.selectedHour = "none"
   this.sortedHours = {};
   //var proxy = 'https://cors-anywhere.herokuapp.com/';
 
@@ -463,40 +464,28 @@ function Scheduler(shopId) {
   this.weekday[5] = "Friday";
   this.weekday[6] = "Saturday";
 
-  this.additionalComment = new Array(6);
-  this.additionalComment[0] = "Drop Off (Have Your Own Ride)";
-  this.additionalComment[1] = "Drop Off (Hertz Rental Car, Under $30/day)";
-  this.additionalComment[2] = "Drop Off (Courtesy Shuttle (Uber)";
-  this.additionalComment[3] = "Drop Off (Before/After Hours Drop Box)";
-  this.additionalComment[4] = "Drop Off (Tow in)";
-  this.additionalComment[5] = "Waiting (not currently avail)";
 
   this.selection = {}
-
   this.init = function () {
-    debugger;
-    var that = this
-
+    var that = this;
 
   //  this.bindEvents();
     //this.setupTable(this.mockHours.AvailableIntervals);
-
-
-
+    
       this.years = this.getYears(function () {
-        that.selectedYear = that.years[0]
+        that.selectedYear = "none"
 
       that.makes = that.getMakes(function () {
-        that.selectedMake = that.makes[0].Id
+        that.selectedMake = "none"
 
       that.models = that.getModels(function () {
-        that.selectedModel = that.models[0].Id
+        that.selectedModel = "none"
 
       this.services = that.getServices(function () {
-        that.selectedService = that.services[0].Id
+        that.selectedService = "none"
 
       this.hours = that.getHours(that.dateString, function () {
-        that.selectedHour = that.hours.AvailableIntervals[0];
+        that.selectedHour = "none"
       })
         })
           that.render()
@@ -512,54 +501,37 @@ function Scheduler(shopId) {
     var formContentEl = $("#form-content")
     var buttonDiv = $("#button-holder");
 
-    var additionalCommentSelect = "";
-    for (var i = 0; i < this.additionalComment.length; i++) {
-      additionalCommentSelect += `<option value=${this.additionalComment[i]} >${this.years[i]}</option>`
-    }
-    var commentSelectHtml = "<div class='form-group select-wrap'><select id='comment-select' class='form-control'>" + additionalCommentSelect + "</select></div>"
-
-
     var yearSelectOptionsHtml = ""
-    yearSelectOptionsHtml += `<option value=0 selected>Year</option>`
+    yearSelectOptionsHtml += `<option value="none" selected>Select Year</option>`
     for (var i = 0; i < this.years.length; i++) {
-        yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
+      yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
     }
     var yearSelectHtml = "<div class='form-group select-wrap'><select id='year-select' class='form-control'>" + yearSelectOptionsHtml + "</select></div>"
 
     var makeSelectOptionsHtml = ""
+    makeSelectOptionsHtml += `<option value="none" selected>Select Make</option>`
     for (var i = 0; i < this.makes.length; i++) {
-      if (parseInt(this.selectedMake) === this.makes[i].Id) {
-        makeSelectOptionsHtml += `<option value=${this.makes[i].Id} selected>${this.makes[i].Name}</option>`
-      }
-      else {
-        makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
-      }
+      makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
     }
     var makeSelectHtml = "<div class='form-group select-wrap'><select id='make-select' class='form-control'>" + makeSelectOptionsHtml + "</select></div>"
+    
     var modelSelectOptionsHtml = ""
+    modelSelectOptionsHtml += `<option value= "none" selected>Select Model</option>`
     for (var i = 0; i < this.models.length; i++) {
-      if (this.selectedModel === this.models[i]) {
-        modelSelectOptionsHtml += `<option value= ${this.models[i].Id} selected>${this.models[i].Name}</option>`
-      }
-      else {
         modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
-      }
     }
     var modelSelectHtml = "<div class= 'form-group select-wrap'><select id='model-select' class='form-control'>" + modelSelectOptionsHtml + "</select></div>"
-    var serviceSelectOptionsHtml = ""
+    
+    var serviceSelectOptionsHtml = "";
+    serviceSelectOptionsHtml += `<option value= "none"} selected>Select Service</option>`
     for (var i = 0; i < this.services.length; i++) {
-      if (this.selectedService === this.services[i]) {
-        serviceSelectOptionsHtml += `<option value= ${this.services[i].Id} selected>${this.services[i].Name}</option>`
-      }
-      else {
-        serviceSelectOptionsHtml += `<option value= ${this.services[i].Id}>${this.services[i].Name}</option>`
-      }
+      serviceSelectOptionsHtml += `<option value= ${this.services[i].Id}>${this.services[i].Name}</option>`
     }
     var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
 
     var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule!</button>';
 
-    formContentEl.html(commentSelectHtml + yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
+    formContentEl.html(yearSelectHtml + makeSelectHtml + modelSelectHtml + serviceSelectHtml);
     buttonDiv.html(buttonHtml);
 
   }.bind(this)
@@ -574,6 +546,7 @@ function Scheduler(shopId) {
     var changeHourEl = $("#change");
     var nextButton = $("#next");
     var prevButton = $("#prev");
+    var commentSelectEL = $("#comment-select");
 
     var that = this;
 
@@ -589,11 +562,17 @@ function Scheduler(shopId) {
 
     yearSelectEl.change(function(e) {
       this.selectedYear = $(e.currentTarget).val()
+      this.selectedMake = "none";
+      this.selectedModel = "none";
       this.makes = this.getMakes(function () {
         that.render()
         that.bindEvents()
       })
     }.bind(this))
+
+    commentSelectEL.change(function (e) {
+      this.extraComment = $(e.currentTarget).val();
+    }.bind(this));
 
     hoursSelectEl.change(function(e) {
       var availableIntervals = this.hours.AvailableIntervals;
@@ -627,7 +606,7 @@ function Scheduler(shopId) {
     makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
       this.models = this.getModels(function() {
-        this.selectedModel = that.models[0].Id
+        this.selectedModel = "none"
         that.render()
         that.bindEvents()
       })
@@ -636,18 +615,14 @@ function Scheduler(shopId) {
   }.bind(this)
 //////////////
   this.getYears = function (callback) {
-    //console.log("in here")
     var shopYearsUrl = this.api.url + this.api.endpoints.shopYears + '?param.shopId=' + this.shopId
     console.log(shopYearsUrl);
     var yearsRequest = new XMLHttpRequest()
     yearsRequest.open("GET",  shopYearsUrl)
     yearsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     yearsRequest.onload = function() {
-    //  console.log("in here")
-      console.log("in here")
-
-
-        this.years = JSON.parse(yearsRequest.response)
+        this.years = JSON.parse(yearsRequest.response);
+        this.selectedYear = "none";
         callback()
     }.bind(this)
 
@@ -722,12 +697,14 @@ function Scheduler(shopId) {
     $('#preloader').show();
     $('#bookingform').hide();
 
+    // validategit
+
     var customer = {
       Year : parseInt(this.selectedYear),
       MakeId : parseInt(this.selectedMake),
       ModelId : parseInt(this.selectedModel),
       ServiceId :parseInt(this.selectedService),
-      AdditionalComment : this.comment,
+      AdditionalComment : this.comment + " " + this.extraComment,
       TimeStart : this.selectedHour.start,
       TimeEnd :this.selectedHour.end,
       FirstName : this.firstName,
@@ -736,6 +713,7 @@ function Scheduler(shopId) {
       Phone :this.phone,
       ShopId : this.shopId
     }
+    console.log(customer);
 
     var bookRequest = new XMLHttpRequest()
     bookRequest.open("POST",  'https://api.mechanicadvisor.com/v7/schedule/Book')
@@ -761,7 +739,7 @@ function Scheduler(shopId) {
 
 
   this.setupTable = function (availableIntervals) {
-
+    this.sortedHours = {}
     for (i = 0; i < availableIntervals.length; i++ ) {
       var date = availableIntervals[i].start.split("T")[0];
       console.log(date);
@@ -777,10 +755,6 @@ function Scheduler(shopId) {
     var body = '';
     var tableBodyEl = $('#tbody');
     tableBodyEl.innerHTML = '';
-    //var myNode = document.getElementById("foo");
-    // while (tableBodyEl.firstChild) {
-    //     myNode.removeChild(myNode.firstChild);
-    // }
 
     for (dayDate in this.sortedHours) {
       day  = this.weekday[(new Date (dayDate).getDay()) /* + 1*/ ];
@@ -810,10 +784,12 @@ function Scheduler(shopId) {
   }
 
   this.next = function() {
-
-    if (this.querydate == null) this.queryDate = new Date();
-
-    this.queryDate.setDate(this.date.getDate() + 7);
+    if (this.querydate == null) {
+      this.queryDate = new Date();
+      this.queryDate.setDate(this.date.getDate() + 7);
+    } else {
+      this.queryDate.setDate(this.queryDate.getDate() + 7);
+    }
     var queryDateString = (this.queryDate.getFullYear() + "-" + (this.queryDate.getMonth() +1) + "-" + this.queryDate.getDate());
     this.getHours(queryDateString, function() {
       this.selectedHour = this.hours.AvailableIntervals[0];
