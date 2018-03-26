@@ -423,7 +423,7 @@ function Scheduler(shopId) {
   }
 }
 
-var scheduler = new Scheduler(603891)
+var scheduler = new Scheduler(document.currentScript.getAttribute("shops"))
 scheduler.init()
 
 function getClickedTime (e) {
