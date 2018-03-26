@@ -80,7 +80,7 @@ function Scheduler(shopId) {
 
     var yearSelectOptionsHtml = ""
     if (this.selectedYear === 'none') {
-      yearSelectOptionsHtml += `<option value="none" selected>Select Year</option>`
+      yearSelectOptionsHtml += `<option value="none" selected>Select Vehicle Year</option>`
     }
 
     for (var i = 0; i < this.years.length; i++) {
@@ -95,7 +95,7 @@ function Scheduler(shopId) {
 
     var makeSelectOptionsHtml = ""
     if (this.selectedMake === 'none') {
-      makeSelectOptionsHtml += `<option value="none" selected>Select Make</option>`
+      makeSelectOptionsHtml += `<option value="none" selected>Select Vehicle Make</option>`
     }
 
     for (var i = 0; i < this.makes.length; i++) {
@@ -109,7 +109,7 @@ function Scheduler(shopId) {
 
     var modelSelectOptionsHtml = ""
     if (this.selectedModel === "none") {
-      modelSelectOptionsHtml += `<option value= "none" selected>Select Model</option>`
+      modelSelectOptionsHtml += `<option value= "none" selected>Select Vehicle Model</option>`
     }
 
     for (var i = 0; i < this.models.length; i++) {
@@ -123,7 +123,7 @@ function Scheduler(shopId) {
 
     var serviceSelectOptionsHtml = "";
     if (this.selectedService == "none") {
-      serviceSelectOptionsHtml += `<option value= "none"} selected>Select Service</option>`
+      serviceSelectOptionsHtml += `<option value= "none"} selected>Select Vehicle Service</option>`
     }
     for (var i = 0; i < this.services.length; i++) {
       if(this.selectedService == this.services[i].Id) {
@@ -300,8 +300,7 @@ function Scheduler(shopId) {
     $('#preloader').show();
     $('#bookingform').hide();
 
-console.log(this.comment, this.extraComment)
-console.log("asdfasdfasdfasdf ")
+
     var customer = {
       Year : parseInt(this.selectedYear),
       MakeId : parseInt(this.selectedMake),
@@ -322,7 +321,7 @@ console.log("asdfasdfasdfasdf ")
     bookRequest.open("POST",  'https://api.mechanicadvisor.com/v7/schedule/Book')
     bookRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     bookRequest.setRequestHeader("Content-Type", "application/json")
-    console.log(bookRequest);
+
     bookRequest.send(JSON.stringify(customer));
     bookRequest.onload = function() {
 
@@ -368,7 +367,7 @@ console.log("asdfasdfasdfasdf ")
     tableBodyEl.innerHTML = '';
 
     for (dayDate in this.sortedHours) {
-      day  = this.weekday[(new Date (dayDate).getDay())  + 1 ];
+      day  = this.weekday[(new Date (dayDate).getDay())  + 1] + "  "+'<br>' +[(new Date (dayDate).getMonth()) + 1] + '/' + [(new Date (dayDate).getDate()) + 1];
       body += '<tr> <td>' + day + '</td> <td>';
 
       for (i = 0; i < this.sortedHours[dayDate].length; i++) {
@@ -376,6 +375,7 @@ console.log("asdfasdfasdfasdf ")
       }
 
       body += '</td></tr>'
+      //body += '<tr> <td>' + day + " " + this.sortedHours[dayDate][i].start.split("T")[0] + '</td> <td>';
     }
     tableBodyEl.html(body)
   }
@@ -423,7 +423,7 @@ console.log("asdfasdfasdfasdf ")
   }
 }
 
-var scheduler = new Scheduler(576676)
+var scheduler = new Scheduler(603891)
 scheduler.init()
 
 function getClickedTime (e) {
