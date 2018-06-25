@@ -1,4 +1,4 @@
-function Scheduler(shopId) {
+function Scheduler(apiUrl, apiKey, shopId) {
 
   this.shopId = shopId
   this.years = []
@@ -12,57 +12,57 @@ function Scheduler(shopId) {
   this.lastName = ""
   this.email = ""
   this.comment = ""
-  this.extraComment = "";
   this.date = new Date();
-  this.dateString = (this.date.getFullYear() + "-" + (this.date.getMonth() +1) + "-" + this.date.getDate());
-  this.queryDate = null;
-  this.selectedYear = "none"
-  this.selectedModel = "none"
-  this.selectedMake = "none"
-  this.selectedService = "none"
-  this.selectedHour = "none"
+  this.date = (this.date.getFullYear() + "-" + (this.date.getMonth() +1) + "-" + this.date.getDate());
+  this.selectedYear = null
+  this.selectedModel = null
+  this.selectedMake = null
+  this.selectedService = null
+  this.selectedHour = null
   this.sortedHours = {};
+  //var proxy = 'https://cors-anywhere.herokuapp.com/';
 
   this.api = {
-    url:  "https://api.mechanicadvisor.com/v7/schedule/",
-    key: "Zjc3Y2ZmNDUyYmI5NGZiOWE4OGI4YjgyYmNlMzE4NjI6",
+    url: apiUrl,
+    key: apiKey,
     endpoints: {
       shopYears: "GetShopVehicleYears",
       makes: "GetShopVehicleMakes",
       models: "GetShopVehicleModels",
       services: "GetShopServices",
-      hours: "GetShopHours"
+      hours: "GetShopHours",
+      book: "Book"
     }
   }
 
-  this.weekday = new Array(8);
-  this.weekday[0] =  "";
+  this.weekday = new Array(7);
+  this.weekday[0] =  "Sunday";
   this.weekday[1] = "Monday";
   this.weekday[2] = "Tuesday";
   this.weekday[3] = "Wednesday";
   this.weekday[4] = "Thursday";
   this.weekday[5] = "Friday";
   this.weekday[6] = "Saturday";
-  this.weekday[7] =  "Sunday";
+
   this.selection = {}
 
   this.init = function () {
-    var that = this;
 
+    var that = this
       this.years = this.getYears(function () {
-        that.selectedYear = "none"
+        that.selectedYear = that.years[0]
 
-      that.makes = that.getMakes(that.years[0], function () {
-        that.selectedMake = "none"
+      that.makes = that.getMakes(function () {
+        that.selectedMake = that.makes[0].Id
 
-      that.models = that.getModels(that.years[0], that.makes[0].id, function () {
-        that.selectedModel = "none"
+      that.models = that.getModels(function () {
+        that.selectedModel = that.models[0].Id
 
       this.services = that.getServices(function () {
-        that.selectedService = "none"
+        that.selectedService = that.services[0].Id
 
-      this.hours = that.getHours(that.dateString, function () {
-        that.selectedHour = "none"
+      this.hours = that.getHours(function () {
+        that.selectedHour = that.hours.AvailableIntervals[0];
       })
         })
           that.render()
@@ -79,60 +79,44 @@ function Scheduler(shopId) {
     var buttonDiv = $("#button-holder");
 
     var yearSelectOptionsHtml = ""
-    if (this.selectedYear === 'none') {
-      yearSelectOptionsHtml += `<option value="none" selected>Select Vehicle Year</option>`
-    }
-
     for (var i = 0; i < this.years.length; i++) {
-
-      if (this.selectedYear == this.years[i]) {
+      if (parseInt(this.selectedYear) === this.years[i]) {
         yearSelectOptionsHtml += `<option value=${this.years[i]} selected>${this.years[i]}</option>`
-      } else {
+      }
+      else {
         yearSelectOptionsHtml += `<option value=${this.years[i]}>${this.years[i]}</option>`
       }
     }
     var yearSelectHtml = "<div class='form-group select-wrap'><select id='year-select' class='form-control'>" + yearSelectOptionsHtml + "</select></div>"
-
     var makeSelectOptionsHtml = ""
-    if (this.selectedMake === 'none') {
-      makeSelectOptionsHtml += `<option value="none" selected>Select Vehicle Make</option>`
-    }
-
     for (var i = 0; i < this.makes.length; i++) {
-      if (this.selectedMake == this.makes[i].Id) {
-        makeSelectOptionsHtml += `<option value=${this.makes[i].Id} selected> ${this.makes[i].Name}</option>`
-      } else{
+      if (parseInt(this.selectedMake) === this.makes[i].Id) {
+        makeSelectOptionsHtml += `<option value=${this.makes[i].Id} selected>${this.makes[i].Name}</option>`
+      }
+      else {
         makeSelectOptionsHtml += `<option value=${this.makes[i].Id}>${this.makes[i].Name}</option>`
       }
     }
     var makeSelectHtml = "<div class='form-group select-wrap'><select id='make-select' class='form-control'>" + makeSelectOptionsHtml + "</select></div>"
-
     var modelSelectOptionsHtml = ""
-    if (this.selectedModel === "none") {
-      modelSelectOptionsHtml += `<option value= "none" selected>Select Vehicle Model</option>`
-    }
-
     for (var i = 0; i < this.models.length; i++) {
-      if (this.selectedModel === this.models[i].Id) {
+      if (this.selectedModel === this.models[i]) {
         modelSelectOptionsHtml += `<option value= ${this.models[i].Id} selected>${this.models[i].Name}</option>`
-      } else {
+      }
+      else {
         modelSelectOptionsHtml += `<option value= ${this.models[i].Id}>${this.models[i].Name}</option>`
       }
     }
     var modelSelectHtml = "<div class= 'form-group select-wrap'><select id='model-select' class='form-control'>" + modelSelectOptionsHtml + "</select></div>"
-
-    var serviceSelectOptionsHtml = "";
-    if (this.selectedService == "none") {
-      serviceSelectOptionsHtml += `<option value= "none"} selected>Select Vehicle Service</option>`
-    }
+    var serviceSelectOptionsHtml = ""
     for (var i = 0; i < this.services.length; i++) {
-      if(this.selectedService == this.services[i].Id) {
+      if (this.selectedService === this.services[i]) {
         serviceSelectOptionsHtml += `<option value= ${this.services[i].Id} selected>${this.services[i].Name}</option>`
-      } else {
+      }
+      else {
         serviceSelectOptionsHtml += `<option value= ${this.services[i].Id}>${this.services[i].Name}</option>`
       }
     }
-
     var serviceSelectHtml = "<div class= 'form-group select-wrap'><select id='services-select' class='form-control'>" + serviceSelectOptionsHtml + "</select></div>"
 
     var buttonHtml = '<button class= "btn btn-md btn-primary" id="bookButton">Schedule!</button>';
@@ -150,35 +134,16 @@ function Scheduler(shopId) {
     var hoursSelectEl = $("#hours-select")
     var bookButton = $("#bookButton");
     var changeHourEl = $("#change");
-    var nextButton = $("#next");
-    var prevButton = $("#prev");
-    var commentSelectEL = $("#comment-select");
 
     var that = this;
 
-    nextButton.click(function(e) {
-      e.preventDefault();
-      this.next();
-    }.bind(this));
-
-    prevButton.click(function(e) {
-      e.preventDefault();
-      this.previous();
-    }.bind(this));
-
     yearSelectEl.change(function(e) {
       this.selectedYear = $(e.currentTarget).val()
-      this.selectedMake = "none";
-      this.selectedModel = "none";
-      this.makes = this.getMakes(this.selectedYear, function () {
+      this.makes = this.getMakes(function () {
         that.render()
         that.bindEvents()
       })
     }.bind(this))
-
-    commentSelectEL.change(function (e) {
-      this.extraComment = $(e.currentTarget).val();
-    }.bind(this));
 
     hoursSelectEl.change(function(e) {
       var availableIntervals = this.hours.AvailableIntervals;
@@ -211,8 +176,8 @@ function Scheduler(shopId) {
 
     makeSelectEl.change(function(e){
       this.selectedMake = $(e.currentTarget).val()
-      this.models = this.getModels(this.selectedYear, this.selectedMake, function() {
-        this.selectedModel = "none"
+      this.models = this.getModels(function() {
+        this.selectedModel = that.models[0].Id
         that.render()
         that.bindEvents()
       })
@@ -226,8 +191,7 @@ function Scheduler(shopId) {
     yearsRequest.open("GET",  shopYearsUrl)
     yearsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     yearsRequest.onload = function() {
-        this.years = JSON.parse(yearsRequest.response);
-        this.selectedYear = "none";
+        this.years = JSON.parse(yearsRequest.response)
         callback()
     }.bind(this)
 
@@ -235,12 +199,13 @@ function Scheduler(shopId) {
 
   }.bind(this)
 ////////////
-  this.getMakes = function (year, callback) {
-    var makesUrl = this.api.url + this.api.endpoints.makes + '?param.year=' + year + "&param.shopId=" + this.shopId
+  this.getMakes = function (callback) {
+    var makesUrl = this.api.url + this.api.endpoints.makes + '?param.year=' + this.selectedYear + "&param.shopId=" + this.shopId
     var makesRequest = new XMLHttpRequest()
     makesRequest.open("GET", makesUrl)
     makesRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     makesRequest.onload = function() {
+        //console.log(makesRequest)
         this.makes = JSON.parse(makesRequest.response)
         if (callback) callback()
     }.bind(this)
@@ -249,10 +214,10 @@ function Scheduler(shopId) {
 
   }.bind(this)
 ///////////
-  this.getModels = function (year, make,callback) {
-    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + year + "&param.makeId=" + make + "&param.shopId=" + this.shopId
+  this.getModels = function (callback) {
+    var modelsUrl = this.api.url + this.api.endpoints.models + "?param.year=" + this.selectedYear + "&param.makeId=" + this.selectedMake + "&param.shopId=" + this.shopId
     var modelsRequest = new XMLHttpRequest()
-    modelsRequest.open("GET", modelsUrl)
+    modelsRequest.open("GET",  modelsUrl)
     modelsRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     modelsRequest.onload = function() {
         this.models = JSON.parse(modelsRequest.response)
@@ -266,7 +231,7 @@ function Scheduler(shopId) {
   this.getServices = function(callback) {
     var servicesURL = this.api.url + this.api.endpoints.services + "?param.shopId=" + this.shopId
     var serviceRequest = new XMLHttpRequest()
-    serviceRequest.open("GET", servicesURL)
+    serviceRequest.open("GET",  servicesURL)
     serviceRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     serviceRequest.onload = function() {
 
@@ -278,13 +243,14 @@ function Scheduler(shopId) {
 
   }.bind(this)
   /////////////////////
-  this.getHours = function (dateString, callback) {
-    var hoursUrl = this.api.url + this.api.endpoints.hours + "?param.date=" + dateString + "&param.shopId=" + this.shopId
+  this.getHours = function (callback) {
+    var hoursUrl = this.api.url + this.api.endpoints.hours + "?param.date=" + this.date + "&param.shopId=" + this.shopId
     var hoursRequest = new XMLHttpRequest()
-    hoursRequest.open("GET",  hoursUrl)
+    hoursRequest.open("GET", hoursUrl)
     hoursRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     hoursRequest.onload = function() {
       this.hours = JSON.parse(hoursRequest.response)
+      console.log(this.hours.AvailableIntervals);
       this.setupTable(this.hours.AvailableIntervals);
       if (callback) callback()
     }.bind(this)
@@ -300,14 +266,12 @@ function Scheduler(shopId) {
     $('#preloader').show();
     $('#bookingform').hide();
 
-
     var customer = {
       Year : parseInt(this.selectedYear),
       MakeId : parseInt(this.selectedMake),
       ModelId : parseInt(this.selectedModel),
       ServiceId :parseInt(this.selectedService),
-      AdditionalComment : this.comment + " " + this.extraComment,
-      //Comments : this.comment + " " + this.extraComment,
+      AdditionalComment : this.comment,
       TimeStart : this.selectedHour.start,
       TimeEnd :this.selectedHour.end,
       FirstName : this.firstName,
@@ -317,25 +281,19 @@ function Scheduler(shopId) {
       ShopId : this.shopId
     }
 
+
+    var url = this.api.url + this.api.endpoints.book
     var bookRequest = new XMLHttpRequest()
-    bookRequest.open("POST",  'https://api.mechanicadvisor.com/v7/schedule/Book')
+    bookRequest.open("POST", url);
     bookRequest.setRequestHeader("Authorization", "Basic " + this.api.key)
     bookRequest.setRequestHeader("Content-Type", "application/json")
-
+    bookRequest.setRequestHeader('Access-Control-Allow-Headers', 'https://samgtaylor.com');
     bookRequest.send(JSON.stringify(customer));
     bookRequest.onload = function() {
-
-
-      var res = JSON.parse(bookRequest.response);
-      if (res.AppointmentId) {
-        $('#success').show();
-        $('#preloader').hide();
-        $('#bookingform').hide();
-      } else {
-        $("#error-message").show();
-        $('#preloader').hide();
-        $('#bookingform').show();
-      }
+      console.log(bookRequest.response);
+      $('#success').show();
+      $('#preloader').hide();
+      $('#bookingform').hide();
     };
   }
 
@@ -350,7 +308,7 @@ function Scheduler(shopId) {
 
 
   this.setupTable = function (availableIntervals) {
-    this.sortedHours = {}
+
     for (i = 0; i < availableIntervals.length; i++ ) {
       var date = availableIntervals[i].start.split("T")[0];
       if (Object.keys(this.sortedHours).indexOf(date) == -1) {
@@ -364,10 +322,8 @@ function Scheduler(shopId) {
   this.populateTable = function () {
     var body = '';
     var tableBodyEl = $('#tbody');
-    tableBodyEl.innerHTML = '';
-
     for (dayDate in this.sortedHours) {
-      day  = this.weekday[(new Date (dayDate).getDay())  + 1] + "  "+'<br>' +[(new Date (dayDate).getMonth()) + 1] + '/' + [(new Date (dayDate).getDate()) + 1];
+      day  = this.weekday[(new Date (dayDate).getDay()) + 1];
       body += '<tr> <td>' + day + '</td> <td>';
 
       for (i = 0; i < this.sortedHours[dayDate].length; i++) {
@@ -375,7 +331,6 @@ function Scheduler(shopId) {
       }
 
       body += '</td></tr>'
-      //body += '<tr> <td>' + day + " " + this.sortedHours[dayDate][i].start.split("T")[0] + '</td> <td>';
     }
     tableBodyEl.html(body)
   }
@@ -393,42 +348,25 @@ function Scheduler(shopId) {
       }
     }
   }
-
-  this.next = function() {
-    if (this.queryDate == null) {
-      this.queryDate = new Date();
-      this.queryDate.setDate(this.date.getDate() + 7);
-    } else {
-      this.queryDate.setDate(this.queryDate.getDate() + 7);
-    }
-
-    var queryDateString = (this.queryDate.getFullYear() + "-" + (this.queryDate.getMonth() +1) + "-" + this.queryDate.getDate());
-    this.getHours(queryDateString, function() {
-      this.selectedHour = this.hours.AvailableIntervals[0];
-    }.bind(this));
-
-  }
-
-  this.previous = function () {
-    var diffDays = parseInt((this.queryDate - this.date) / (1000 * 60 * 60 * 24));
-
-      if (this.queryDate && diffDays >= 7) {
-        this.queryDate.setDate(this.queryDate.getDate() - 7);
-        var queryDateString = (this.queryDate.getFullYear() + "-" + (this.queryDate.getMonth() +1) + "-" + this.queryDate.getDate());
-        this.getHours(queryDateString, function() {
-          this.selectedHour = this.hours.AvailableIntervals[0];
-        }.bind(this));
-
-      }
-  }
 }
 
-var scheduler = new Scheduler(document.currentScript.getAttribute("shops"))
-scheduler.init()
+(function (win) {
+  var script = win.document.currentScript;
+  getParam = function (paramName) {
+    return script.getAttribute(paramName);
+  };
 
-function getClickedTime (e) {
-  e.preventDefault();
-  scheduler.setChosenTime(e.target.id);
-  $('#table').hide();
-  $('#change').show();
-}
+  var apiUrl = getParam("apiUrl");
+  var apiKey = getParam("apiKey");
+  var shopId = getParam("shopId");
+  var scheduler = new Scheduler(apiUrl, apiKey, shopId);
+  scheduler.init();
+
+  win.getClickedTime = function (e) {
+    e.preventDefault();
+    scheduler.setChosenTime(e.target.id);
+    $('#table').hide();
+    $('#change').show();
+  }
+})(window);
+
